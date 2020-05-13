@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="18dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="20dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_margin="8dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_new_close"/>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_below="@id/iv_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:id="@+id/ll_booking_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_bookingCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                tools:text="39AXN"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/primary_text_light"/>
+
+            <TextView
+                android:id="@+id/tv_bookingPickup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="17:30"
+                android:textSize="16sp"
+                android:textColor="@android:color/primary_text_light"/>
+
+            <TextView
+                android:id="@+id/tv_bookingPrice"
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Rp.15.000"
+                android:textSize="16sp"
+                android:textColor="@android:color/primary_text_light"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/ll_booking_container">
+
+            <TextView
+                android:id="@+id/tv_userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Nama User"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/primary_text_light"/>
+
+            <TextView
+                android:id="@+id/tv_userPhone"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Telepon User"
+                android:textSize="14sp"
+                android:textColor="@android:color/secondary_text_light"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:id="@+id/rl_order_status"
+        android:layout_below="@id/ll_content"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_payment_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Lunas"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@android:color/primary_text_light"/>
+
+        <TextView
+            android:id="@+id/tv_order_status"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Sedang Diproses"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@android:color/primary_text_light"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_file"
+        android:layout_below="@id/rl_order_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bordered_button_ripple"
+        android:text="FILE"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+</RelativeLayout>

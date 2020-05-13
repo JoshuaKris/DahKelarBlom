@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="textColorHint">#9CA4AC</color>
+    <color name="textColorInput">#0F2236</color>
+    <color name="textColorLabel">#0F2236</color>
+    <color name="skeletonGrey">#C9C9C9</color>
+    <color name="greyDefault">#EFEFEF</color>
+    <color name="greyBackground">#FAFAFA</color>
+    <color name="greyDarkerDefault">#DADADA</color>
+    <color name="loadingWhiteOverlay">#9FFFFFFF</color>
+    <color name="colorOverlay">#33000000</color>
+    <color name="colorOverlayWhite">#99FFFFFF</color>
+    <color name="colorRedButton">#E93838</color>
+    <color name="colorRipple">#818181</color>
+    <color name="borderPillShop">#CCCCCC</color>
+    <color name="skeletonAlpha">#CECECE</color>
+</resources>

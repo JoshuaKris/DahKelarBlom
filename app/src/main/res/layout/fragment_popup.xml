@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tv_popup_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Order Berhasil !"
+        android:textSize="18sp"
+        android:textAllCaps="true"
+        android:textColor="@android:color/primary_text_light"
+        android:textStyle="bold"/>
+
+    <View
+        android:id="@+id/v_div"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/tv_popup_title"
+        android:background="@drawable/divider"
+        android:backgroundTint="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:id="@+id/tv_popup_message"
+        android:layout_below="@id/v_div"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_centerHorizontal="true"
+        android:text="Orderan kamu sudah dikirimkan ke toko."
+        android:textSize="14sp"
+        android:textColor="@android:color/primary_text_light"/>
+
+    <TextView
+        android:id="@+id/tv_booking_code"
+        android:layout_below="@id/iv_popup_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_centerHorizontal="true"
+        android:text="Kode Booking mu adalah 39AXN"
+        android:textSize="14sp"
+        android:textColor="@android:color/primary_text_light"/>
+
+    <ImageView
+        android:id="@+id/iv_popup_status"
+        android:layout_below="@id/tv_popup_message"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="18dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_check_black_24dp"
+        android:tint="@color/colorPrimaryDark"/>
+
+    <Button
+        android:id="@+id/bt_popup_ok"
+        android:layout_below="@id/tv_booking_code"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bordered_button_ripple"
+        android:text="OK"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp" />
+
+</RelativeLayout>

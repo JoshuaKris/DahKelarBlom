@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.register.RegisterActivity">
+
+    <fragment
+        android:id="@+id/f_header"
+        android:name="com.example.dahkelarblom.utils.HeaderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@id/f_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll_container_merchant_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Toko"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_merchant_name_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_box_normal"
+                    android:padding="4dp"
+                    android:layout_marginTop="4dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"
+                    android:inputType="textAutoComplete"
+                    android:lines="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_container_merchant_id"
+                android:layout_below="@id/ll_container_merchant_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Pengguna"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_merchant_id_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_box_normal"
+                    android:padding="4dp"
+                    android:layout_marginTop="4dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"
+                    android:inputType="textAutoComplete"
+                    android:lines="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_container_merchant_password"
+                android:layout_below="@id/ll_container_merchant_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Password"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_merchant_password_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_box_normal"
+                    android:padding="4dp"
+                    android:layout_marginTop="4dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"
+                    android:inputType="textVisiblePassword"
+                    android:lines="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_container_merchant_email"
+                android:layout_below="@id/ll_container_merchant_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_merchant_email_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_box_normal"
+                    android:padding="4dp"
+                    android:layout_marginTop="4dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"
+                    android:inputType="textEmailAddress"
+                    android:lines="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_container_merchant_phone"
+                android:layout_below="@id/ll_container_merchant_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No. Telepon"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_merchant_phone_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_box_normal"
+                    android:padding="4dp"
+                    android:layout_marginTop="4dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"
+                    android:inputType="phone"
+                    android:lines="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_container_merchant_address"
+                android:layout_below="@id/ll_container_merchant_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_merchant_address_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:background="@drawable/edittext_box_normal"
+                    android:padding="4dp"
+                    android:layout_marginTop="4dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColorLabel"
+                    android:inputType="textMultiLine"
+                    android:lines="4"/>
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_button_sign_in"
+                android:layout_below="@id/ll_container_merchant_address"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorPrimaryDark">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="DAFTAR"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

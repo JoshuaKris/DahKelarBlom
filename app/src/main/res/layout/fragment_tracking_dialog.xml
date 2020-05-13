@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tv_popup_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Status Order 39AXN"
+        android:textSize="18sp"
+        android:textAllCaps="true"
+        android:textColor="@android:color/primary_text_light"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:id="@+id/ll_dialog_content"
+        android:layout_below="@id/tv_popup_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_merchant_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zenta"
+                android:textSize="16sp"
+                android:textColor="@android:color/primary_text_light"/>
+
+            <TextView
+                android:id="@+id/tv_merchant_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Jl. Anggrek Cakra No.16 RT.2/RW.9 (Binus Anggrek B Floor)"
+                android:textSize="14sp"
+                android:textColor="@android:color/secondary_text_light"/>
+
+            <TextView
+                android:id="@+id/tv_merchant_phonenum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="(021) 53660671"
+                android:textSize="14sp"
+                android:textColor="@android:color/secondary_text_light"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_booking_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Proses"
+                android:textAllCaps="true"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_booking_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"
+                android:text="Rp 12.000"
+                android:textSize="16sp"
+                android:textColor="@android:color/secondary_text_light"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_booking_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"
+                android:text="17:30 WIB"
+                android:textSize="16sp"
+                android:textColor="@android:color/secondary_text_light"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_popup_ok"
+        android:layout_below="@id/ll_dialog_content"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bordered_button_ripple"
+        android:text="OK"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp" />
+
+</RelativeLayout>

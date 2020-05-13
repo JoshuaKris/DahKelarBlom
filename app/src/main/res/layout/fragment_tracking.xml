@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/greyBackground"
+    tools:context=".view.userMenu.notifications.TrackingFragment">
+
+    <TextView
+        android:id="@+id/text_tracking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/ll_tracking_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="60dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/tv_enter_booking_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Masukkan kode booking"
+            android:textSize="20sp"
+            android:textColor="@android:color/primary_text_light"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_booking_code_field"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_box"
+            android:layout_marginTop="32dp"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_below="@id/tv_enter_booking_code"
+            android:inputType="textAutoComplete"
+            android:lines="1"/>
+
+        <Button
+            android:id="@+id/bt_tracking_booking"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/et_booking_code_field"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Track My Booking"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

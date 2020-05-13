@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "921208471588",
+    "firebase_url": "https://dah-kelar-blom.firebaseio.com",
+    "project_id": "dah-kelar-blom",
+    "storage_bucket": "dah-kelar-blom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:921208471588:android:1d341354a2ae47771e18b1",
+        "android_client_info": {
+          "package_name": "com.example.dahkelarblom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "921208471588-30n0r20m31389hkadl1tv1s3nm1ojp6h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvhCNMEpgAVJSsFB0fASWA4VRuh3r95tY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "921208471588-30n0r20m31389hkadl1tv1s3nm1ojp6h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
