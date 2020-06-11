@@ -109,15 +109,12 @@
             android:textSize="18sp"
             android:textColor="@android:color/primary_text_light"/>
 
-        <TextView
-            android:id="@+id/tv_order_status"
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_status"
+            android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Sedang Diproses"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@android:color/primary_text_light"/>
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 
@@ -132,5 +129,19 @@
         android:textAllCaps="true"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/bt_change_status"
+        android:layout_below="@id/rl_order_status"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:padding="4dp"
+        android:background="@drawable/bordered_button_ripple"
+        android:text="Ubah Status"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp" />
 
 </RelativeLayout>

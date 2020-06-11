@@ -9,14 +9,17 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dahkelarblom.R;
-import com.example.dahkelarblom.view.adminMenu.AdminMenuActivity;
+import com.example.dahkelarblom.view.menuAdmin.AdminMenuActivity;
 import com.example.dahkelarblom.view.register.RegisterActivity;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
 
     private MaterialCardView cv_button_sign_in;
     private TextView tv_register;
+    private TextInputEditText et_username_field;
+    private TextInputEditText et_password_field;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.example.dahkelarblom.view.userMenu.notifications;
+package com.example.dahkelarblom.view.menuUser.notifications;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,8 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.dahkelarblom.popup.EmptyTrackingDialogFragment;
 import com.example.dahkelarblom.R;
-import com.example.dahkelarblom.TrackingDialogFragment;
+import com.example.dahkelarblom.popup.TrackingDialogFragment;
 import com.example.dahkelarblom.model.BookingModel;
 import com.example.dahkelarblom.model.Merchant;
 
@@ -27,6 +28,7 @@ public class TrackingFragment extends Fragment {
     private EditText et_booking_code_field;
     private Button bt_tracking_booking;
     private TrackingDialogFragment trackingDialogFragment;
+    private EmptyTrackingDialogFragment emptyTrackingDialogFragment;
     private BookingModel bookingTemp;
 
     @Override
@@ -51,10 +53,14 @@ public class TrackingFragment extends Fragment {
         bt_tracking_booking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (et_booking_code_field.getText() != null) {
+                if (!"".contentEquals(et_booking_code_field.getText())) {
                     trackingDialogFragment = TrackingDialogFragment.newInstance(bookingTemp);
                     trackingDialogFragment.show(getChildFragmentManager(), "popupSuccess");
+                } else {
+                    emptyTrackingDialogFragment = new EmptyTrackingDialogFragment();
+                    emptyTrackingDialogFragment.show(getChildFragmentManager(), "popupEmpty");
                 }
+
             }
         });
     }

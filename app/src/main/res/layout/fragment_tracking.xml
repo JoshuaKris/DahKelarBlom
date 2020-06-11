@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/greyBackground"
-    tools:context=".view.userMenu.notifications.TrackingFragment">
+    tools:context=".view.menuUser.notifications.TrackingFragment">
 
     <TextView
         android:id="@+id/text_tracking"

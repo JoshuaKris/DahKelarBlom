@@ -192,7 +192,7 @@
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_button_sign_in"
+                android:id="@+id/cv_button_register"
                 android:layout_below="@id/ll_container_merchant_address"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"

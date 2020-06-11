@@ -10,5 +10,5 @@
     android:layout_marginRight="16dp"
     android:overScrollMode="never"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".view.userMenu.home.MerchantListFragment"
+    tools:context=".view.menuUser.home.MerchantListFragment"
     tools:listitem="@layout/fragment_item" />

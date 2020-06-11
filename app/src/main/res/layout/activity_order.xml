@@ -7,312 +7,315 @@
     style="@style/Theme.AppCompat.Light.NoActionBar"
     tools:context=".view.OrderActivity">
 
-    <RelativeLayout
-        android:id="@+id/rl_content"
+    <fragment
+        android:id="@+id/f_header"
+        android:name="com.example.dahkelarblom.utils.HeaderFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"/>
 
-        <fragment
-            android:id="@+id/f_header"
-            android:name="com.example.dahkelarblom.utils.HeaderFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@id/f_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:id="@+id/rl_orderForm"
-            android:layout_below="@id/f_header"
+            android:id="@+id/rl_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/ll_container"
+            <RelativeLayout
+                android:id="@+id/rl_orderForm"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/rl_ib_close"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="20dp">
+                android:layout_height="wrap_content">
 
-                <RelativeLayout
-                    android:id="@+id/rl_dialogContent"
+                <LinearLayout
+                    android:id="@+id/ll_container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_title_roaming_destination"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:text="Pilih Jenis Order"
-                        android:textColor="@color/textColorLabel"
-                        android:textSize="16sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_below="@+id/rl_ib_close"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="20dp">
 
                     <RelativeLayout
-                        android:id="@+id/rl_order_choose"
-                        android:layout_below="@id/tv_title_roaming_destination"
+                        android:id="@+id/rl_dialogContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="4dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tv_hint_order_choose"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="jenis order"
-                            android:textColor="@color/greyDarkerDefault"
-                            android:textSize="17sp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:src="@drawable/ic_chevron_down" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@id/tv_hint_order_choose"
-                            android:layout_marginTop="8dp"
-                            android:background="@color/textColorHint" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/rl_fileChooser"
-                        android:layout_below="@id/rl_order_choose"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_quantity"
-                            android:layout_width="30dp"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textAlignment="center"
-                            android:layout_marginRight="8dp"
-                            android:background="@drawable/background_white_bordered_black"/>
-
-                        <TextView
-                            android:id="@+id/tv_totalPages"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/et_quantity"
-                            android:text="Jumlah Halaman"
-                            android:textColor="@color/textColorLabel"
-                            android:layout_centerVertical="true"
-                            android:textSize="15sp"/>
-
-                        <TextView
-                            android:id="@+id/tv_priceEstimation"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="Rp.25.000"
-                            android:textColor="@color/textColorLabel"
-                            android:layout_centerVertical="true"
-                            android:textSize="18sp"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/rl_fileSze"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_below="@id/rl_fileChooser">
-
-                        <TextView
-                            android:id="@+id/tv_paperSize"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="12dp"
-                            android:text="Ukuran Kertas"
-                            android:layout_centerVertical="true"
-                            android:textColor="@color/textColorLabel"
-                            android:textSize="16sp"/>
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/tv_paperSize"
-                            android:inputType="text"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/rl_fileChooser2"
-                        android:layout_below="@id/rl_fileSze"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp">
-
-                        <Button
-                            android:id="@+id/bt_uploadFile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:layout_marginRight="4dp"
-                            android:text="Upload File"
-                            android:textAllCaps="false"
-                            android:textColor="@android:color/white"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tv_uploadFileText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/bt_uploadFile"
-                            android:ellipsize="middle"
-                            android:singleLine="true"
-                            android:text="* File harus dalam format PDF"
-                            android:textColor="@color/textColorLabel"
-                            android:layout_centerVertical="true"
-                            android:textSize="14sp"/>
-
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_bio"
-                        android:layout_below="@id/rl_fileChooser2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_title_roaming_destination"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Data Diri"
-                            android:textStyle="bold"
+                            android:layout_marginTop="25dp"
+                            android:text="Pilih Jenis Order"
                             android:textColor="@color/textColorLabel"
-                            android:textSize="18sp"/>
+                            android:textSize="16sp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <RelativeLayout
+                            android:id="@+id/rl_order_choose"
+                            android:layout_below="@id/tv_title_roaming_destination"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp">
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="4dp"
+                            android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tv_bioName"
+                                android:id="@+id/tv_hint_order_choose"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="12dp"
-                                android:text="Nama"
-                                android:layout_centerVertical="true"
-                                android:textColor="@color/textColorLabel"
-                                android:textSize="16sp"/>
+                                android:text="jenis order"
+                                android:textColor="@color/greyDarkerDefault"
+                                android:textSize="17sp" />
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/et_bioName"
-                                android:layout_width="match_parent"
+                            <ImageView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_toRightOf="@id/tv_bioName"
-                                android:inputType="text"/>
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_chevron_down" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_below="@id/tv_hint_order_choose"
+                                android:layout_marginTop="8dp"
+                                android:background="@color/textColorHint" />
 
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/rl_fileSize"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp">
+                            android:layout_marginTop="16dp"
+                            android:layout_below="@id/rl_order_choose">
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/tv_paperSize"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginRight="12dp"-->
+<!--                                android:text="Ukuran Kertas"-->
+<!--                                android:layout_centerVertical="true"-->
+<!--                                android:textColor="@color/textColorLabel"-->
+<!--                                android:textSize="16sp"/>-->
+
+<!--                            <com.google.android.material.textfield.TextInputEditText-->
+<!--                                android:id="@+id/et_paperSize"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_toRightOf="@id/tv_paperSize"-->
+<!--                                android:inputType="text"/>-->
 
                             <TextView
-                                android:id="@+id/tv_bioPhoneNum"
+                                android:id="@+id/tv_priceEstimation"
+                                android:layout_marginTop="8dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="12dp"
-                                android:text="No. Hp"
-                                android:layout_centerVertical="true"
-                                android:textColor="@color/textColorLabel"
-                                android:textSize="16sp"/>
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/et_bioPhoneNum"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_toRightOf="@id/tv_bioPhoneNum"
-                                android:inputType="phone"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp">
-
-                            <TextView
-                                android:id="@+id/tv_bioDate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="12dp"
-                                android:text="Jam Pengambilan"
-                                android:layout_centerVertical="true"
-                                android:textColor="@color/textColorLabel"
-                                android:textSize="16sp"/>
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/et_bioDate"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_toRightOf="@id/tv_bioDate"
-                                android:inputType="date"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/et_bioDate"
                                 android:layout_alignParentRight="true"
-                                android:layout_marginRight="12dp"
-                                android:text="Minimal 3 Jam setelah order"
-                                android:textSize="11dp"
-                                android:textColor="@android:color/secondary_text_light"/>
+                                android:visibility="gone"
+                                android:textColor="@color/textColorLabel"
+                                android:textSize="18sp"/>
 
                         </RelativeLayout>
 
-                    </LinearLayout>
+                        <RelativeLayout
+                            android:id="@+id/rl_fileChooser"
+                            android:layout_below="@id/rl_fileSize"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp">
 
-                    <Button
-                        android:id="@+id/bt_order"
-                        android:layout_below="@id/ll_bio"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
-                        android:background="@drawable/bordered_button_ripple"
-                        android:text="Order"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20sp" />
+                            <TextView
+                                android:id="@+id/tv_fileName"
+                                android:layout_width="250dp"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:ellipsize="middle"
+                                android:singleLine="true"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textStyle="bold"
+                                android:textSize="14sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_filePages"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tv_fileName"
+                                android:visibility="gone"
+                                android:singleLine="true"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textStyle="bold"
+                                android:textSize="14sp"/>
+
+                            <Button
+                                android:id="@+id/bt_uploadFile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tv_filePages"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:layout_marginRight="4dp"
+                                android:text="Upload File"
+                                android:textAllCaps="false"
+                                android:textColor="@android:color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/tv_uploadFileText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_toRightOf="@id/bt_uploadFile"
+                                android:ellipsize="middle"
+                                android:singleLine="true"
+                                android:text="* File harus dalam format PDF"
+                                android:textColor="@color/textColorLabel"
+                                android:layout_alignBottom="@id/bt_uploadFile"
+                                android:textSize="14sp"/>
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_bio"
+                            android:layout_below="@id/rl_fileChooser"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Data Diri"
+                                android:textStyle="bold"
+                                android:textColor="@color/textColorLabel"
+                                android:textSize="18sp"/>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp">
+
+                                <TextView
+                                    android:id="@+id/tv_bioName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="12dp"
+                                    android:text="Nama"
+                                    android:layout_centerVertical="true"
+                                    android:textColor="@color/textColorLabel"
+                                    android:textSize="16sp"/>
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_bioName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/tv_bioName"
+                                    android:inputType="text"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp">
+
+                                <TextView
+                                    android:id="@+id/tv_bioPhoneNum"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="12dp"
+                                    android:text="No. Hp"
+                                    android:layout_centerVertical="true"
+                                    android:textColor="@color/textColorLabel"
+                                    android:textSize="16sp"/>
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_bioPhoneNum"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/tv_bioPhoneNum"
+                                    android:inputType="phone"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp">
+
+                                <TextView
+                                    android:id="@+id/tv_bioDate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="12dp"
+                                    android:text="Jam Pengambilan"
+                                    android:layout_centerVertical="true"
+                                    android:textColor="@color/textColorLabel"
+                                    android:textSize="16sp"/>
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_bioDate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/tv_bioDate"
+                                    android:inputType="date"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/et_bioDate"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="12dp"
+                                    android:text="Minimal 3 Jam setelah order"
+                                    android:textSize="11dp"
+                                    android:textColor="@android:color/secondary_text_light"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/bt_order"
+                            android:layout_below="@id/ll_bio"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="40dp"
+                            android:background="@drawable/bordered_button_ripple"
+                            android:text="Order"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20sp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorOverlayWhite"
+                    android:clickable="true"
+                    android:elevation="100dp"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <include layout="@layout/layout_loading" />
 
                 </RelativeLayout>
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/layout_loading"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorOverlayWhite"
-                android:clickable="true"
-                android:elevation="100dp"
-                android:focusable="true"
-                android:gravity="center"
-                android:visibility="gone">
-
-                <include layout="@layout/layout_loading" />
 
             </RelativeLayout>
 
         </RelativeLayout>
 
-    </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <FrameLayout
         android:id="@+id/fl_emptyState"

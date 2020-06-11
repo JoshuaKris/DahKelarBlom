@@ -1,4 +1,4 @@
-package com.example.dahkelarblom.view.adminMenu;
+package com.example.dahkelarblom.view.menuAdmin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,9 +31,14 @@ public class AdminMenuActivity extends AppCompatActivity implements AdminOrderLi
     private final PopupAdminOrderFragment.PopupAdminOrderListener popupAdminOrderListener =
             new PopupAdminOrderFragment.PopupAdminOrderListener() {
                 @Override
-                public void okClicked(boolean isClicked) {
+                public void okClicked(boolean isClicked, BookingModel item) {
                     if (isClicked) {
-//                        finish();
+                        for (BookingModel bookingModel : orderList) {
+                            if (item.getBookingCode().equalsIgnoreCase(bookingModel.getBookingCode())) {
+                                bookingModel.setBookingStatus(item.getBookingStatus());
+                                updateRV(orderList);
+                            }
+                        }
                     }
                 }
             };
@@ -43,7 +48,7 @@ public class AdminMenuActivity extends AppCompatActivity implements AdminOrderLi
         setContentView(R.layout.activity_admin_menu);
 
         viewModel = ViewModelProviders.of(this).get(AdminMenuViewModel.class);
-        viewModel.fetchBookingData(true);
+        viewModel.fetchOrderData(true);
         text_admin_order = findViewById(R.id.text_admin_order);
         rv_order_list = findViewById(R.id.rv_order_list);
         rl_add_order = findViewById(R.id.rl_add_order);

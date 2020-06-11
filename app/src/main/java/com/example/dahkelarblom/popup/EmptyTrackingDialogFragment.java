@@ -13,70 +13,66 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.dahkelarblom.R;
 
 import java.util.Objects;
 
-public class PopupFragment extends DialogFragment {
+public class EmptyTrackingDialogFragment extends DialogFragment {
 
-    private static String POPUP_BOOKING_CODE_ = "popup_booking_code";
 
-    private Button bt_ok;
-    private TextView tv_booking_code;
-    private String popupBookingCode;
-    private PopupListener mPopupListener;
+    private Button
+            bt_ok;
+    private TextView
+            tv_empty_tracking_title,
+            tv_empty_tracking_message;
+    private EmptyTrackingPopupListener
+            mEmptyTrackingPopupListener;
 
-    public PopupFragment() {
+    public EmptyTrackingDialogFragment() {
         // Required empty public constructor
-    }
-
-    public static PopupFragment newInstance(String title) {
-        PopupFragment fragment = new PopupFragment();
-        Bundle args = new Bundle();
-        args.putString(POPUP_BOOKING_CODE_,title);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            popupBookingCode = getArguments().getString(POPUP_BOOKING_CODE_);
-        }
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Objects.requireNonNull(getDialog().getWindow()).requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setCancelable(false);
-        View fragmentView = inflater.inflate(R.layout.fragment_popup, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_empty_tracking_dialog, container, false);
 
-        bt_ok = fragmentView.findViewById(R.id.bt_popup_ok);
-        tv_booking_code = fragmentView.findViewById(R.id.tv_booking_code);
+        bt_ok = fragmentView.findViewById(R.id.bt_ok);
+        tv_empty_tracking_title = fragmentView.findViewById(R.id.tv_empty_tracking_title);
+        tv_empty_tracking_message = fragmentView.findViewById(R.id.tv_empty_tracking_message);
 
-        tv_booking_code.setText(String.format("Kode Booking mu adalah %1$s",popupBookingCode));
+        return fragmentView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getDialog().dismiss();
-                if (mPopupListener != null) {
-                    mPopupListener.okClicked(true);
+                if (mEmptyTrackingPopupListener != null) {
+                    mEmptyTrackingPopupListener.okClicked(true);
                 }
             }
         });
 
-        return fragmentView;
     }
-    public void setListener(PopupListener mPopupListener) {
-        this.mPopupListener = mPopupListener;
+
+    public void setListener(EmptyTrackingPopupListener mEmptyTrackingPopupListener) {
+        this.mEmptyTrackingPopupListener = mEmptyTrackingPopupListener;
     }
 
     @Override
@@ -86,7 +82,6 @@ public class PopupFragment extends DialogFragment {
         Point size = new Point();
         Display display = Objects.requireNonNull(window).getWindowManager().getDefaultDisplay();
         display.getSize(size);
-        int height = size.y;
         window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
         Objects.requireNonNull(getDialog().getWindow()).setBackgroundDrawableResource(R.drawable.dialog_background);
@@ -98,7 +93,7 @@ public class PopupFragment extends DialogFragment {
         Objects.requireNonNull(getDialog().getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
-    public interface PopupListener {
+    public interface EmptyTrackingPopupListener {
         void okClicked(boolean isClicked);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.dahkelarblom;
+package com.example.dahkelarblom.popup;
 
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.BookingModel;
 
 import java.util.Objects;

@@ -15,11 +15,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.dahkelarblom.R;
+import com.example.dahkelarblom.SpinnerStatusAdapter;
 import com.example.dahkelarblom.model.BookingModel;
+import com.example.dahkelarblom.model.SpinnerStatus;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class PopupAdminOrderFragment extends DialogFragment {
@@ -34,10 +38,11 @@ public class PopupAdminOrderFragment extends DialogFragment {
             tv_bookingPrice,
             tv_userName,
             tv_userPhone,
-            tv_payment_status,
-            tv_order_status;
-    private Button bt_file;
-
+            tv_payment_status;
+    private Button bt_file, bt_change_status;
+    private AppCompatSpinner spinner_status;
+    private ArrayList<SpinnerStatus> list;
+    private SpinnerStatusAdapter spinnerAdapter;
 
     public PopupAdminOrderFragment() {
         // Required empty public constructor
@@ -62,7 +67,6 @@ public class PopupAdminOrderFragment extends DialogFragment {
         // Inflate the layout for this fragment
         Objects.requireNonNull(getDialog().getWindow()).requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        setCancelable(false);
         View fragmentView = inflater.inflate(R.layout.fragment_popup_admin_order, container, false);
 
         iv_close = fragmentView.findViewById(R.id.iv_close);
@@ -72,8 +76,14 @@ public class PopupAdminOrderFragment extends DialogFragment {
         tv_userName = fragmentView.findViewById(R.id.tv_userName);
         tv_userPhone = fragmentView.findViewById(R.id.tv_userPhone);
         tv_payment_status = fragmentView.findViewById(R.id.tv_payment_status);
-        tv_order_status = fragmentView.findViewById(R.id.tv_order_status);
         bt_file = fragmentView.findViewById(R.id.bt_file);
+        bt_change_status = fragmentView.findViewById(R.id.bt_change_status);
+        spinner_status = fragmentView.findViewById(R.id.spinner_status);
+
+        list = new ArrayList<>();
+        list.add(new SpinnerStatus("belum diproses",false));
+        list.add(new SpinnerStatus("sedang diproses",false));
+        list.add(new SpinnerStatus("sudah selesai",false));
 
         if (getArguments() != null) {
             mItem = getArguments().getParcelable("item");
@@ -84,7 +94,16 @@ public class PopupAdminOrderFragment extends DialogFragment {
                 tv_userName.setText("User Model not Found");
                 tv_userPhone.setText("User Model not Found");
                 tv_payment_status.setText("Lunas");
-                tv_order_status.setText(mItem.getBookingStatus());
+
+                spinnerAdapter = new SpinnerStatusAdapter(getContext(),list);
+                spinner_status.setAdapter(spinnerAdapter);
+
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getStatus().equals(mItem.getBookingStatus())) {
+                        spinner_status.setSelection(i);
+                    }
+                }
+
             }
         }
 
@@ -92,8 +111,16 @@ public class PopupAdminOrderFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 Objects.requireNonNull(getDialog()).dismiss();
+            }
+        });
+
+        bt_change_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Objects.requireNonNull(getDialog()).dismiss();
                 if (mPopupListener != null) {
-                    mPopupListener.okClicked(true);
+                    mItem.setBookingStatus(list.get(spinner_status.getSelectedItemPosition()).getStatus());
+                    mPopupListener.okClicked(true, mItem);
                 }
             }
         });
@@ -132,6 +159,6 @@ public class PopupAdminOrderFragment extends DialogFragment {
     }
 
     public interface PopupAdminOrderListener {
-        void okClicked(boolean isClicked);
+        void okClicked(boolean isClicked, BookingModel item);
     }
 }

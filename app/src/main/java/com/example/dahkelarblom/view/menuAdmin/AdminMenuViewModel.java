@@ -1,4 +1,4 @@
-package com.example.dahkelarblom.view.adminMenu;
+package com.example.dahkelarblom.view.menuAdmin;
 
 import android.annotation.SuppressLint;
 
@@ -29,7 +29,7 @@ public class AdminMenuViewModel extends ViewModel {
     }
 
     @SuppressLint("DefaultLocale")
-    public void fetchBookingData(boolean exist) {
+    public void fetchOrderData(boolean exist) {
         List<BookingModel> temp = new ArrayList<>();
         BookingModel model;
         Merchant merchant = new Merchant(

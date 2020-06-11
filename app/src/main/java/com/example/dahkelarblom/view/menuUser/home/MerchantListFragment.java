@@ -1,4 +1,4 @@
-package com.example.dahkelarblom.view.userMenu.home;
+package com.example.dahkelarblom.view.menuUser.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class MerchantListFragment extends Fragment implements MerchantListAdapter.OnClickListener {
 
     private static final String MERCHANT_DATA = "merchant_data";
-    private int mColumnCount = 2;
+    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private ArrayList<Merchant> merchantArrayList;
 

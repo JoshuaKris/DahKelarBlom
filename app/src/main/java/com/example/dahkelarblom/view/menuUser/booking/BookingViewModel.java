@@ -1,4 +1,4 @@
-package com.example.dahkelarblom.view.userMenu.booking;
+package com.example.dahkelarblom.view.menuUser.booking;
 
 import android.annotation.SuppressLint;
 

@@ -114,7 +114,7 @@ public class DialogChooseFragment extends DialogFragment implements DialogChoose
         Display display = Objects.requireNonNull(window).getWindowManager().getDefaultDisplay();
         display.getSize(size);
         int height = size.y;
-        if (dataFilter.size() > 7) {
+        if (dataFilter.size() > 6) {
             window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, (int) (height * 0.75));
         } else {
             window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
@@ -126,7 +126,7 @@ public class DialogChooseFragment extends DialogFragment implements DialogChoose
     @Override
     public void onStart() {
         super.onStart();
-        Objects.requireNonNull(getDialog().getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        Objects.requireNonNull(getDialog().getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     private void updateRV() {

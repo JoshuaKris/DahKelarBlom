@@ -1,4 +1,4 @@
-package com.example.dahkelarblom.view.userMenu.notifications;
+package com.example.dahkelarblom.view.menuUser.notifications;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

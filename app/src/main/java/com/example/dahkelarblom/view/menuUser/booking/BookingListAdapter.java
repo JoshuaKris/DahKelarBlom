@@ -1,4 +1,4 @@
-package com.example.dahkelarblom.view.adminMenu;
+package com.example.dahkelarblom.view.menuUser.booking;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,17 +9,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.BookingModel;
-import com.example.dahkelarblom.view.userMenu.home.MerchantListFragment.OnListFragmentInteractionListener;
+import com.example.dahkelarblom.view.menuUser.home.MerchantListFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 
-public class AdminOrderListAdapter extends RecyclerView.Adapter<AdminOrderListAdapter.ViewHolder> {
+public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.ViewHolder> {
 
     private List<BookingModel> mValues;
     private OnListFragmentInteractionListener mListener;
-    private AdminOrderListOnClickListener onClickListener;
+    private BookingListOnClickListener onClickListener;
 
-    public AdminOrderListAdapter(List<BookingModel> merchantList, AdminOrderListOnClickListener onClickListener) {
+    public BookingListAdapter(List<BookingModel> items, OnListFragmentInteractionListener listener) {
+        mValues = items;
+        mListener = listener;
+    }
+
+    public BookingListAdapter(List<BookingModel> merchantList, BookingListOnClickListener onClickListener) {
         mValues = merchantList;
         this.onClickListener = onClickListener;
     }
@@ -50,10 +55,10 @@ public class AdminOrderListAdapter extends RecyclerView.Adapter<AdminOrderListAd
                 tv_bookingPickup,
                 tv_bookingPrice,
                 tv_bookingStatus;
-        public AdminOrderListOnClickListener
+        public BookingListOnClickListener
                 onClickListener;
 
-        public ViewHolder(View view, AdminOrderListOnClickListener onClickListener) {
+        public ViewHolder(View view, BookingListOnClickListener onClickListener) {
             super(view);
             tv_itemName = view.findViewById(R.id.tv_itemName);
             tv_content = view.findViewById(R.id.tv_content);
@@ -82,7 +87,7 @@ public class AdminOrderListAdapter extends RecyclerView.Adapter<AdminOrderListAd
         }
     }
 
-    public interface AdminOrderListOnClickListener {
+    public interface BookingListOnClickListener {
         public void onClick(int pos);
     }
 }

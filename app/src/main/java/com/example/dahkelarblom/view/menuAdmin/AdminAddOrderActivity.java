@@ -1,4 +1,4 @@
-package com.example.dahkelarblom.view.adminMenu;
+package com.example.dahkelarblom.view.menuAdmin;
 
 
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dahkelarblom.DialogChooseFragment;
 import com.example.dahkelarblom.utils.HeaderFragment;
-import com.example.dahkelarblom.popup.PopupFragment;
+import com.example.dahkelarblom.popup.PopupSuccessFragment;
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.DialogItem;
 import com.google.android.material.card.MaterialCardView;
@@ -48,8 +48,8 @@ public class AdminAddOrderActivity extends AppCompatActivity {
         }
     };
 
-    private PopupFragment popupFragment;
-    private final PopupFragment.PopupListener popupListener = new PopupFragment.PopupListener() {
+    private PopupSuccessFragment popupSuccessFragment;
+    private final PopupSuccessFragment.PopupListener popupListener = new PopupSuccessFragment.PopupListener() {
         @Override
         public void okClicked(boolean isClicked) {
             if (isClicked) {
@@ -93,9 +93,9 @@ public class AdminAddOrderActivity extends AppCompatActivity {
         cv_button_add_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupFragment = PopupFragment.newInstance("WD420");
-                popupFragment.show(getSupportFragmentManager(), "popupSuccess");
-                popupFragment.setListener(popupListener);
+                popupSuccessFragment = PopupSuccessFragment.newInstance("WD420");
+                popupSuccessFragment.show(getSupportFragmentManager(), "popupSuccess");
+                popupSuccessFragment.setListener(popupListener);
             }
         });
     }

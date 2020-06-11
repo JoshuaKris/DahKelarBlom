@@ -3,21 +3,16 @@ package com.example.dahkelarblom.view.auth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.dahkelarblom.utils.HeaderFragment;
 import com.example.dahkelarblom.R;
-import com.example.dahkelarblom.view.adminMenu.AdminMenuActivity;
 import com.example.dahkelarblom.view.login.LoginActivity;
-import com.example.dahkelarblom.view.userMenu.MainActivity;
+import com.example.dahkelarblom.view.menuUser.UserMenuActivity;
 import com.google.android.material.card.MaterialCardView;
 
 public class AuthActivity extends AppCompatActivity {
 
-    private HeaderFragment headerFragment;
-    private ImageButton ib_backButton;
 
     private MaterialCardView cv_auth_user;
     private MaterialCardView cv_auth_admin;
@@ -33,7 +28,7 @@ public class AuthActivity extends AppCompatActivity {
         cv_auth_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AuthActivity.this, MainActivity.class));
+                startActivity(new Intent(AuthActivity.this, UserMenuActivity.class));
             }
         });
 

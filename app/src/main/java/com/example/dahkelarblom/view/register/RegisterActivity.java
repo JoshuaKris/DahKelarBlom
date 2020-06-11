@@ -18,7 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private HeaderFragment headerFragment;
     private ImageButton ib_backButton;
-    private MaterialCardView cv_button_sign_in;
+    private MaterialCardView cv_button_register;
     private PopupRegisterFragment popupRegisterFragment;
     private final PopupRegisterFragment.PopupRegisterListener popupRegisterListener =
             new PopupRegisterFragment.PopupRegisterListener() {
@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        cv_button_sign_in = findViewById(R.id.cv_button_sign_in);
+        cv_button_register = findViewById(R.id.cv_button_register);
         headerFragment = (HeaderFragment) getSupportFragmentManager().findFragmentById(R.id.f_header);
         ib_backButton = Objects.requireNonNull(headerFragment.getView()).findViewById(R.id.ib_backButton);
 
@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        cv_button_sign_in.setOnClickListener(new View.OnClickListener() {
+        cv_button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupRegisterFragment = PopupRegisterFragment.newInstance();

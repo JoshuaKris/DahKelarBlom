@@ -1,4 +1,4 @@
-package com.example.dahkelarblom.view.userMenu.home;
+package com.example.dahkelarblom.view.menuUser.home;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.Merchant;
-import com.example.dahkelarblom.view.userMenu.home.MerchantListFragment.OnListFragmentInteractionListener;
+import com.example.dahkelarblom.view.menuUser.home.MerchantListFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 
@@ -49,25 +49,29 @@ public class MerchantListAdapter extends RecyclerView.Adapter<MerchantListAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public ImageView mImageView;
+        public final TextView tv_merchant_name;
+        public final TextView tv_merchant_address;
+        public final TextView tv_merchant_phonenum;
+        public ImageView iv_merchant_image;
         public OnClickListener onClickListener;
 
         public ViewHolder(View view, OnClickListener onClickListener) {
             super(view);
-            mIdView = view.findViewById(R.id.item_name);
-            mContentView = view.findViewById(R.id.content);
-            mImageView = view.findViewById(R.id.iv_sample);
+            tv_merchant_name = view.findViewById(R.id.tv_merchant_name);
+            tv_merchant_address = view.findViewById(R.id.tv_merchant_address);
+            iv_merchant_image = view.findViewById(R.id.iv_merchant_image);
+            tv_merchant_phonenum = view.findViewById(R.id.tv_merchant_phonenum);
 
             this.onClickListener = onClickListener;
             itemView.setOnClickListener(this);
         }
 
         public void bind(Merchant merchant){
-            mIdView.setText(merchant.getMerchantName());
-            mContentView.setText(merchant.getMerchantAddress());
+            tv_merchant_name.setText(merchant.getMerchantName());
+            tv_merchant_address.setText(merchant.getMerchantAddress());
+            tv_merchant_phonenum.setText(merchant.getMerchantPhoneNum());
             //setImageView
+            //iv_merchant_image.
         }
 
         @Override

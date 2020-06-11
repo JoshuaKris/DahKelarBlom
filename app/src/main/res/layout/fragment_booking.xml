@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/greyBackground"
-    tools:context=".view.userMenu.booking.BookingFragment">
+    tools:context=".view.menuUser.booking.BookingFragment">
 
     <TextView
         android:id="@+id/text_booking"

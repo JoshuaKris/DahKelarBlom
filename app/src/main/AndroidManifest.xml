@@ -10,17 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.adminMenu.AdminAddOrderActivity"
+            android:name=".view.menuAdmin.AdminAddOrderActivity"
             android:theme="@style/SecondaryAppTheme" />
         <activity
-            android:name=".view.adminMenu.AdminMenuActivity" />
+            android:name=".view.menuAdmin.AdminMenuActivity" />
         <activity
             android:name=".view.register.RegisterActivity"
             android:theme="@style/SecondaryAppTheme" />
         <activity
             android:name=".view.login.LoginActivity" />
         <activity
-            android:name=".view.userMenu.MainActivity" />
+            android:name=".view.menuUser.UserMenuActivity" />
         <activity
             android:name=".view.OrderActivity"
             android:theme="@style/SecondaryAppTheme" />

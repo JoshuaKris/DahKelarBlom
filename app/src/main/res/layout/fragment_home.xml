@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/greyBackground"
-    tools:context=".view.userMenu.home.HomeFragment">
+    tools:context=".view.menuUser.home.HomeFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_location_here"
@@ -27,6 +27,7 @@
 
             <ImageView
                 android:id="@+id/iv_location"
+                android:visibility="gone"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="5dp"
