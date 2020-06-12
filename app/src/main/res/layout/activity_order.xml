@@ -68,7 +68,7 @@
                                 android:id="@+id/tv_hint_order_choose"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="jenis order"
+                                tools:text="Jenis Order"
                                 android:textColor="@color/greyDarkerDefault"
                                 android:textSize="17sp" />
 

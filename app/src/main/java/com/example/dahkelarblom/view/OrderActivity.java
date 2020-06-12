@@ -17,11 +17,14 @@ import android.provider.OpenableColumns;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dahkelarblom.DialogChooseFragment;
+import com.example.dahkelarblom.utils.BaseActivity;
 import com.example.dahkelarblom.utils.HeaderFragment;
 import com.example.dahkelarblom.popup.PopupSuccessFragment;
 import com.example.dahkelarblom.R;
@@ -34,36 +37,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class OrderActivity extends AppCompatActivity {
+public class OrderActivity extends BaseActivity implements DialogChooseFragment.OnInputListener {
 
     private HeaderFragment headerFragment;
     private ImageButton ib_backButton;
     private RelativeLayout rl_order_choose;
     private Button bt_order, bt_uploadFile;
     private TextView tv_price_estimation, tv_file_name, tv_file_pages, tv_hint_order_choose;
+    private EditText et_bioName, et_bioPhoneNum, et_bioDate;
 
-    private final String RESET_KEY = "reset";
     private final int GET_PDF_KEY = 0;
     private static final int PERMSISSION_REQUEST = 100;
     private String dialogInput = "";
-    private String state;
 
     private final ArrayList<DialogItem> dialogItemList = new ArrayList<>();
     private DialogChooseFragment dialogChooseFragment;
-    private final DialogChooseFragment.OnInputListener dialogChooseListener = new DialogChooseFragment.OnInputListener()  {
-        @Override
-        public void sendInput(String input) {
-            dialogInput = input;
-            if (dialogInput == null) {
-                tv_hint_order_choose.setText("jenis order");
-                tv_hint_order_choose.setTextColor(getColor(R.color.greyDarkerDefault));
-            } else {
-                tv_hint_order_choose.setText(dialogInput);
-                tv_hint_order_choose.setTextColor(getColor(R.color.textColorLabel));
-                state = "";
-            }
-        }
-    };
 
     private PopupSuccessFragment popupSuccessFragment;
     private final PopupSuccessFragment.PopupListener popupListener = new PopupSuccessFragment.PopupListener() {
@@ -91,8 +79,12 @@ public class OrderActivity extends AppCompatActivity {
         bt_uploadFile = findViewById(R.id.bt_uploadFile);
         tv_file_name = findViewById(R.id.tv_fileName);
         tv_file_pages = findViewById(R.id.tv_filePages);
+        et_bioName = findViewById(R.id.et_bioName);
+        et_bioPhoneNum = findViewById(R.id.et_bioPhoneNum);
+        et_bioDate = findViewById(R.id.et_bioDate);
 
         headerFragment.headerV2("Order",false,false);
+        tv_hint_order_choose.setText(DEFAULT_ORDER_TEXT_KEY);
 
         ib_backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,16 +99,23 @@ public class OrderActivity extends AppCompatActivity {
                 dialogChooseFragment = DialogChooseFragment.newInstance(dialogItemList,"Jenis Order");
 
                 dialogChooseFragment.show(getSupportFragmentManager(), "dialogChooseOrder");
-                dialogChooseFragment.setListener(dialogChooseListener);
+                dialogChooseFragment.setListener(OrderActivity.this);
             }
         });
 
         bt_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupSuccessFragment = PopupSuccessFragment.newInstance("WD420");
-                popupSuccessFragment.show(getSupportFragmentManager(), "popupSuccess");
-                popupSuccessFragment.setListener(popupListener);
+                if (!isEquals(tv_hint_order_choose,DEFAULT_ORDER_TEXT_KEY) && isNotEmpty(et_bioName) &&
+                    isNotEmpty(et_bioPhoneNum) && isNotEmpty(et_bioDate) &&
+                        !tv_file_name.getText().toString().isEmpty()) {
+                    popupSuccessFragment = PopupSuccessFragment.newInstance("WD420");
+                    popupSuccessFragment.show(getSupportFragmentManager(), "popupSuccess");
+                    popupSuccessFragment.setListener(popupListener);
+                }
+                else {
+                    Toast.makeText(OrderActivity.this, "Data masih ada yang kosong, silakan isi dahulu yang masih kosong.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -217,5 +216,14 @@ public class OrderActivity extends AppCompatActivity {
         tv_price_estimation.setVisibility(View.VISIBLE);
         tv_file_pages.setText(String.format("Number of Page : %1$s",pages));
         tv_file_pages.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void sendInput(String input) {
+       if (!dialogInput.equalsIgnoreCase(input)) {
+           dialogInput = input;
+           tv_hint_order_choose.setText(dialogInput);
+           tv_hint_order_choose.setTextColor(getColor(R.color.textColorLabel));
+       }
     }
 }

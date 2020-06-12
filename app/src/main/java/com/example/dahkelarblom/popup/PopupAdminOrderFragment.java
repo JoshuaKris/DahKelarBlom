@@ -91,9 +91,9 @@ public class PopupAdminOrderFragment extends DialogFragment {
                 tv_bookingCode.setText(mItem.getBookingCode());
                 tv_bookingPickup.setText(mItem.getBookingPickupTime());
                 tv_bookingPrice.setText(mItem.getBookingPrice());
-                tv_userName.setText("User Model not Found");
-                tv_userPhone.setText("User Model not Found");
-                tv_payment_status.setText("Lunas");
+                tv_userName.setText(mItem.getCustomer().getName());
+                tv_userPhone.setText(mItem.getCustomer().getPhoneNum());
+                tv_payment_status.setText(mItem.getCustomerPaymentStatus());
 
                 spinnerAdapter = new SpinnerStatusAdapter(getContext(),list);
                 spinner_status.setAdapter(spinnerAdapter);

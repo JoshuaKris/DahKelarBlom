@@ -10,14 +10,8 @@ public class BookingModel implements Parcelable {
     private String bookingPickupTime;
     private String bookingStatus;
     private Merchant merchantToBook;
-
-    public BookingModel(String bookingCode, String bookingPrice, String bookingPickupTime, String bookingStatus, Merchant merchantToBook) {
-        this.bookingCode = bookingCode;
-        this.bookingPrice = bookingPrice;
-        this.bookingPickupTime = bookingPickupTime;
-        this.bookingStatus = bookingStatus;
-        this.merchantToBook = merchantToBook;
-    }
+    private Customer customer;
+    private String customerPaymentStatus;
 
     protected BookingModel(Parcel in) {
         bookingCode = in.readString();
@@ -25,6 +19,8 @@ public class BookingModel implements Parcelable {
         bookingPickupTime = in.readString();
         bookingStatus = in.readString();
         merchantToBook = in.readParcelable(Merchant.class.getClassLoader());
+        customer = in.readParcelable(Customer.class.getClassLoader());
+        customerPaymentStatus = in.readString();
     }
 
     public static final Creator<BookingModel> CREATOR = new Creator<BookingModel>() {
@@ -79,6 +75,32 @@ public class BookingModel implements Parcelable {
         this.merchantToBook = merchantToBook;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public String getCustomerPaymentStatus() {
+        return customerPaymentStatus;
+    }
+
+    public void setCustomerPaymentStatus(String customerPaymentStatus) {
+        this.customerPaymentStatus = customerPaymentStatus;
+    }
+
+    public BookingModel(String bookingCode, String bookingPrice, String bookingPickupTime, String bookingStatus, Merchant merchantToBook, Customer customer, String customerPaymentStatus) {
+        this.bookingCode = bookingCode;
+        this.bookingPrice = bookingPrice;
+        this.bookingPickupTime = bookingPickupTime;
+        this.bookingStatus = bookingStatus;
+        this.merchantToBook = merchantToBook;
+        this.customer = customer;
+        this.customerPaymentStatus = customerPaymentStatus;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -91,5 +113,7 @@ public class BookingModel implements Parcelable {
         dest.writeString(bookingPickupTime);
         dest.writeString(bookingStatus);
         dest.writeParcelable(merchantToBook, flags);
+        dest.writeParcelable(customer, flags);
+        dest.writeString(customerPaymentStatus);
     }
 }

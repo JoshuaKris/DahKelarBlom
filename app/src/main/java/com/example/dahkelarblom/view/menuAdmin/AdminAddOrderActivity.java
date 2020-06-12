@@ -3,13 +3,16 @@ package com.example.dahkelarblom.view.menuAdmin;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dahkelarblom.DialogChooseFragment;
+import com.example.dahkelarblom.utils.BaseActivity;
 import com.example.dahkelarblom.utils.HeaderFragment;
 import com.example.dahkelarblom.popup.PopupSuccessFragment;
 import com.example.dahkelarblom.R;
@@ -19,7 +22,7 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AdminAddOrderActivity extends AppCompatActivity {
+public class AdminAddOrderActivity extends BaseActivity {
 
     private HeaderFragment headerFragment;
     private ImageButton ib_backButton;
@@ -30,6 +33,12 @@ public class AdminAddOrderActivity extends AppCompatActivity {
     private String dialogInput = "";
     private String state;
     private TextView tv_hint_order_choose;
+    private EditText
+            et_order_name_field,
+            et_order_phone_field,
+            et_order_price_field,
+            et_order_pickup_field,
+            et_order_payment_status_field;
 
     private final ArrayList<DialogItem> dialogItemList = new ArrayList<>();
     private DialogChooseFragment dialogChooseFragment;
@@ -70,6 +79,11 @@ public class AdminAddOrderActivity extends AppCompatActivity {
         cv_button_add_order = findViewById(R.id.cv_button_add_order);
         rl_order_choose = findViewById(R.id.rl_order_choose);
         tv_hint_order_choose = findViewById(R.id.tv_hint_order_choose);
+        et_order_name_field = findViewById(R.id.et_order_name_field);
+        et_order_phone_field = findViewById(R.id.et_order_phone_field);
+        et_order_price_field = findViewById(R.id.et_order_price_field);
+        et_order_pickup_field = findViewById(R.id.et_order_pickup_field);
+        et_order_payment_status_field = findViewById(R.id.et_order_payment_status_field);
 
         headerFragment.headerV2("Order Baru",false,false);
 
@@ -93,9 +107,20 @@ public class AdminAddOrderActivity extends AppCompatActivity {
         cv_button_add_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupSuccessFragment = PopupSuccessFragment.newInstance("WD420");
-                popupSuccessFragment.show(getSupportFragmentManager(), "popupSuccess");
-                popupSuccessFragment.setListener(popupListener);
+                if (!isEquals(tv_hint_order_choose,DEFAULT_ORDER_TEXT_KEY)
+                        && isNotEmpty(et_order_name_field) &&
+                        isNotEmpty(et_order_phone_field) &&
+                        isNotEmpty(et_order_price_field) &&
+                        isNotEmpty(et_order_pickup_field) &&
+                        isNotEmpty(et_order_payment_status_field)) {
+                    popupSuccessFragment = PopupSuccessFragment.newInstance("WD420");
+                    popupSuccessFragment.show(getSupportFragmentManager(), "popupSuccess");
+                    popupSuccessFragment.setListener(popupListener);
+                }
+                else {
+                    Toast.makeText(AdminAddOrderActivity.this, "Data masih ada yang kosong, silakan isi dahulu yang masih kosong.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }

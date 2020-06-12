@@ -79,14 +79,14 @@ public class DialogChooseFragment extends DialogFragment implements DialogChoose
             public void onClick(View view) {
                 if (indexSelected != null) {
                     inputRadio = dataFilter.get(indexSelected).getItemTitle();
+                    if (mOnInputListener != null) {
+                        mOnInputListener.sendInput(inputRadio);
+                        getDialog().dismiss();
+                    }
                 } else {
                     getDialog().dismiss();
                 }
 
-                if (mOnInputListener != null) {
-                    mOnInputListener.sendInput(inputRadio);
-                    getDialog().dismiss();
-                }
             }
         });
 
@@ -114,11 +114,7 @@ public class DialogChooseFragment extends DialogFragment implements DialogChoose
         Display display = Objects.requireNonNull(window).getWindowManager().getDefaultDisplay();
         display.getSize(size);
         int height = size.y;
-        if (dataFilter.size() > 6) {
-            window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, (int) (height * 0.75));
-        } else {
-            window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        }
+        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, (int) (height * 0.75));
         window.setGravity(Gravity.CENTER);
         Objects.requireNonNull(getDialog().getWindow()).setBackgroundDrawableResource(R.drawable.dialog_background);
     }
@@ -126,7 +122,7 @@ public class DialogChooseFragment extends DialogFragment implements DialogChoose
     @Override
     public void onStart() {
         super.onStart();
-        Objects.requireNonNull(getDialog().getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(getDialog().getWindow()).setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     private void updateRV() {

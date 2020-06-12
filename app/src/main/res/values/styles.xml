@@ -18,5 +18,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--for bottom navbar-->
+    <style name="AppTheme.BottomBar">
+        <item name="itemIconTint">@android:color/white</item>
+        <item name="itemTextColor">@android:color/white</item>
+        <item name="itemBackground">@color/colorPrimary</item>
+    </style>
+
 
 </resources>

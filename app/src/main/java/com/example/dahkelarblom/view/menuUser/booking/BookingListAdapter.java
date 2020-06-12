@@ -72,7 +72,7 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
         }
 
         public void bind(BookingModel bookingModel){
-            tv_itemName.setText(bookingModel.getMerchantToBook().getMerchantName());
+            tv_itemName.setText(bookingModel.getMerchantToBook().getMerchantStoreName());
             tv_content.setText(bookingModel.getMerchantToBook().getMerchantAddress());
             tv_bookingCode.setText(bookingModel.getBookingCode());
             tv_bookingPickup.setText(bookingModel.getBookingPickupTime());

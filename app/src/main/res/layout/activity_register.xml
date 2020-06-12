@@ -102,7 +102,7 @@
                     android:layout_marginTop="4dp"
                     android:textSize="16sp"
                     android:textColor="@color/textColorLabel"
-                    android:inputType="textVisiblePassword"
+                    android:inputType="textPassword"
                     android:lines="1"/>
             </LinearLayout>
 

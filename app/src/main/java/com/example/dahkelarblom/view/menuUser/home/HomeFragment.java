@@ -21,27 +21,17 @@ import com.example.dahkelarblom.model.DialogItem;
 import com.example.dahkelarblom.model.Merchant;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements DialogChooseFragment.OnInputListener {
 
     private HomeViewModel homeViewModel;
     private final ArrayList<DialogItem> dialogItemList = new ArrayList<>();
     private String dialogInput = "";
     private DialogChooseFragment dialogChooseFragment;
-    private final DialogChooseFragment.OnInputListener dialogChooseListener = new DialogChooseFragment.OnInputListener()  {
-        @Override
-        public void sendInput(String input) {
-            dialogInput = input;
-            if (dialogInput == null) {
-                tv_location.setText("jenis order");
-                iv_location.setVisibility(View.GONE);
-            } else {
-                tv_location.setText(dialogInput);
-                iv_location.setVisibility(View.VISIBLE);
-            }
-        }
-    };
+    private List<Merchant> merchantSwap = new ArrayList<>();
+    private List<Merchant> merchantTemp = new ArrayList<>();
 
     private TextView tv_location;
     private FrameLayout fl_merchantsList;
@@ -55,7 +45,7 @@ public class HomeFragment extends Fragment {
 
         homeViewModel.fetchText("Pilih Wilayah");
         homeViewModel.fetchMerchantData();
-        createItem();
+        homeViewModel.fetchLocationData();
 
         tv_location = root.findViewById(R.id.tv_locationName);
         fl_merchantsList = root.findViewById(R.id.fl_merchantsList);
@@ -76,14 +66,14 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 dialogChooseFragment = DialogChooseFragment.newInstance(dialogItemList,"Pilih Wilayah");
                 dialogChooseFragment.show(getFragmentManager(), "dialogChooseOrder");
-                dialogChooseFragment.setListener(dialogChooseListener);
+                dialogChooseFragment.setListener(HomeFragment.this);
             }
         });
     }
 
     private void replaceFragment(Fragment tempFragment) {
         getFragmentManager().beginTransaction()
-                .add(R.id.fl_merchantsList, tempFragment)
+                .replace(R.id.fl_merchantsList, tempFragment)
                 .commit();
     }
 
@@ -99,27 +89,41 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(List<Merchant> merchantList) {
                 if (merchantList != null) {
+                    merchantTemp = merchantList;
                     replaceFragment(MerchantListFragment.newInstance((ArrayList<Merchant>) merchantList));
+                }
+            }
+        });
+
+        homeViewModel.getLocationList().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> locationList) {
+                if (locationList != null) {
+                    DialogItem item;
+                    for (String loc : locationList) {
+                        item = new DialogItem(loc,false);
+                        dialogItemList.add(item);
+                    }
                 }
             }
         });
     }
 
-    private void createItem() {
-        DialogItem item;
-        item = new DialogItem("Jakarta Barat",false);
-        dialogItemList.add(item);
-        item = new DialogItem("Jakarta Utara",false);
-        dialogItemList.add(item);
-        item = new DialogItem("Jakarta Selatan",false);
-        dialogItemList.add(item);
-        item = new DialogItem("Jakarta Timur",false);
-        dialogItemList.add(item);
-        item = new DialogItem("Jakarta Pusat",false);
-        dialogItemList.add(item);
-        item = new DialogItem("Bogor",false);
-        dialogItemList.add(item);
-        item = new DialogItem("Bekasi",false);
-        dialogItemList.add(item);
+    @Override
+    public void sendInput(String input) {
+        dialogInput = input;
+        if (dialogInput.equals("Pilih Wilayah")) {
+            iv_location.setVisibility(View.GONE);
+        } else {
+            tv_location.setText(dialogInput);
+            iv_location.setVisibility(View.VISIBLE);
+            merchantSwap.clear();
+            for (Merchant merchant : merchantTemp) {
+                if (merchant.getMerchantAddress().contains(dialogInput)) {
+                    merchantSwap.add(merchant);
+                }
+            }
+            replaceFragment(MerchantListFragment.newInstance((ArrayList<Merchant>) merchantSwap));
+        }
     }
 }

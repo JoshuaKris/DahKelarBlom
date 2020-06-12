@@ -87,9 +87,9 @@ public class TrackingDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         tv_popup_title.setText(String.format("Status Order %1$s",mBooking.getBookingCode()));
-        tv_merchant_name.setText(mBooking.getMerchantToBook().getMerchantName());
+        tv_merchant_name.setText(mBooking.getMerchantToBook().getName());
         tv_merchant_address.setText(mBooking.getMerchantToBook().getMerchantAddress());
-        tv_merchant_phonenum.setText(mBooking.getMerchantToBook().getMerchantPhoneNum());
+        tv_merchant_phonenum.setText(mBooking.getMerchantToBook().getPhoneNum());
         tv_booking_status.setText(mBooking.getBookingStatus());
         tv_booking_price.setText(mBooking.getBookingPrice());
         tv_booking_pickup.setText(mBooking.getBookingPickupTime());

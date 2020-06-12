@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.dahkelarblom.model.BookingModel;
+import com.example.dahkelarblom.model.Customer;
 import com.example.dahkelarblom.model.Merchant;
 
 import java.util.ArrayList;
@@ -32,10 +33,16 @@ public class AdminMenuViewModel extends ViewModel {
     public void fetchOrderData(boolean exist) {
         List<BookingModel> temp = new ArrayList<>();
         BookingModel model;
+
+        Customer customer = new Customer("Budi","081808280838");
+
         Merchant merchant = new Merchant(
-                "Zenta Print",
-                "Jl. Anggrek Cakra No.16 RT.2/RW.9 (Binus Anggrek B Floor)",
+                "Zenta Admin",
                 "(021) 53660671",
+                "Zenta Print",
+                "Zenta123",
+                "zenta.print@gmail.com",
+                "Jl. Anggrek Cakra No.16 RT.2/RW.9 (Binus Anggrek B Floor)",
                 0);
 
         if (exist) {
@@ -45,7 +52,9 @@ public class AdminMenuViewModel extends ViewModel {
                         "15.000",
                         "17:3" + i*2,
                         "sedang diproses",
-                        merchant);
+                        merchant,
+                        customer,
+                        "Lunas");
                 temp.add(model);
             }
             orderList.setValue(temp);

@@ -3,23 +3,37 @@ package com.example.dahkelarblom.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Merchant implements Parcelable {
-    private String merchantName;
+public class Merchant extends PersonModel implements Parcelable{
+    private String merchantStoreName;
+    private String merchantPassword;
+    private String merchantEmail;
     private String merchantAddress;
-    private String merchantPhoneNum;
     private int merchantImage;
 
-    public Merchant(String merchantName, String merchantAddress, String merchantPhoneNum, int merchantImage) {
-        this.merchantName = merchantName;
+    public Merchant(String name, String phoneNum, String merchantStoreName, String merchantPassword, String merchantEmail, String merchantAddress, int merchantImage) {
+        super(name, phoneNum);
+        this.merchantStoreName = merchantStoreName;
+        this.merchantPassword = merchantPassword;
+        this.merchantEmail = merchantEmail;
         this.merchantAddress = merchantAddress;
-        this.merchantPhoneNum = merchantPhoneNum;
         this.merchantImage = merchantImage;
     }
 
-    private Merchant(Parcel in) {
-        merchantName = in.readString();
+    public Merchant(Parcel in, String merchantStoreName, String merchantPassword, String merchantEmail, String merchantAddress, int merchantImage) {
+        super(in);
+        this.merchantStoreName = merchantStoreName;
+        this.merchantPassword = merchantPassword;
+        this.merchantEmail = merchantEmail;
+        this.merchantAddress = merchantAddress;
+        this.merchantImage = merchantImage;
+    }
+
+    protected Merchant(Parcel in) {
+        super(in);
+        merchantStoreName = in.readString();
+        merchantPassword = in.readString();
+        merchantEmail = in.readString();
         merchantAddress = in.readString();
-        merchantPhoneNum = in.readString();
         merchantImage = in.readInt();
     }
 
@@ -35,12 +49,28 @@ public class Merchant implements Parcelable {
         }
     };
 
-    public String getMerchantName() {
-        return merchantName;
+    public String getMerchantStoreName() {
+        return merchantStoreName;
     }
 
-    public void setMerchantName(String merchantName) {
-        this.merchantName = merchantName;
+    public void setMerchantStoreName(String merchantStoreName) {
+        this.merchantStoreName = merchantStoreName;
+    }
+
+    public String getMerchantPassword() {
+        return merchantPassword;
+    }
+
+    public void setMerchantPassword(String merchantPassword) {
+        this.merchantPassword = merchantPassword;
+    }
+
+    public String getMerchantEmail() {
+        return merchantEmail;
+    }
+
+    public void setMerchantEmail(String merchantEmail) {
+        this.merchantEmail = merchantEmail;
     }
 
     public String getMerchantAddress() {
@@ -49,14 +79,6 @@ public class Merchant implements Parcelable {
 
     public void setMerchantAddress(String merchantAddress) {
         this.merchantAddress = merchantAddress;
-    }
-
-    public String getMerchantPhoneNum() {
-        return merchantPhoneNum;
-    }
-
-    public void setMerchantPhoneNum(String merchantPhoneNum) {
-        this.merchantPhoneNum = merchantPhoneNum;
     }
 
     public int getMerchantImage() {
@@ -74,9 +96,10 @@ public class Merchant implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(merchantName);
+        dest.writeString(merchantStoreName);
+        dest.writeString(merchantPassword);
+        dest.writeString(merchantEmail);
         dest.writeString(merchantAddress);
-        dest.writeString(merchantPhoneNum);
         dest.writeInt(merchantImage);
     }
 }

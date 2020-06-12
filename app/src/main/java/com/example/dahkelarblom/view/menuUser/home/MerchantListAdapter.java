@@ -67,9 +67,9 @@ public class MerchantListAdapter extends RecyclerView.Adapter<MerchantListAdapte
         }
 
         public void bind(Merchant merchant){
-            tv_merchant_name.setText(merchant.getMerchantName());
+            tv_merchant_name.setText(merchant.getMerchantStoreName());
             tv_merchant_address.setText(merchant.getMerchantAddress());
-            tv_merchant_phonenum.setText(merchant.getMerchantPhoneNum());
+            tv_merchant_phonenum.setText(merchant.getPhoneNum());
             //setImageView
             //iv_merchant_image.
         }

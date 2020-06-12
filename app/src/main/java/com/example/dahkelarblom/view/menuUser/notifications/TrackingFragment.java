@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.dahkelarblom.model.Customer;
 import com.example.dahkelarblom.popup.EmptyTrackingDialogFragment;
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.popup.TrackingDialogFragment;
@@ -75,17 +76,25 @@ public class TrackingFragment extends Fragment {
     }
 
     private void createBookingTemp() {
+        Customer customer = new Customer("Budi","081808280838");
+
         Merchant merchant = new Merchant(
-                "Zenta Print",
-                "Jl. Anggrek Cakra No.16 RT.2/RW.9 (Binus Anggrek B Floor)",
+                "Zenta Admin",
                 "(021) 53660671",
+                "Zenta Print",
+                "Zenta123",
+                "zenta.print@gmail.com",
+                "Jl. Anggrek Cakra No.16 RT.2/RW.9 (Binus Anggrek B Floor)",
                 0);
+
         bookingTemp = new BookingModel(
                 "ZT007",
                 "12.000",
                 "18:30",
                 "proses",
-                merchant);
+                merchant,
+                customer,
+                "Lunas");
     }
 
 }
