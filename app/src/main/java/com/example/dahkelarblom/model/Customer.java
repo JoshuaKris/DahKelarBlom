@@ -2,17 +2,26 @@ package com.example.dahkelarblom.model;
 
 import android.os.Parcel;
 
-public class Customer extends PersonModel{
+public class Customer extends PersonModel {
 
-    public Customer(String name, String phoneNum) {
-        super(name, phoneNum);
+    public Customer(String name, String phoneNum, String email) {
+        super(name, phoneNum, email);
     }
 
-    private Customer(Parcel in) {
+    protected Customer(Parcel in) {
         super(in);
     }
 
-    //need to copy this
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
     public static final Creator<Customer> CREATOR = new Creator<Customer>() {
         @Override
         public Customer createFromParcel(Parcel in) {
@@ -24,6 +33,4 @@ public class Customer extends PersonModel{
             return new Customer[size];
         }
     };
-
-
 }

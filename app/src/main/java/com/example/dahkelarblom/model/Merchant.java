@@ -3,27 +3,16 @@ package com.example.dahkelarblom.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Merchant extends PersonModel implements Parcelable{
+public class Merchant extends PersonModel {
     private String merchantStoreName;
     private String merchantPassword;
-    private String merchantEmail;
     private String merchantAddress;
     private int merchantImage;
 
-    public Merchant(String name, String phoneNum, String merchantStoreName, String merchantPassword, String merchantEmail, String merchantAddress, int merchantImage) {
-        super(name, phoneNum);
+    public Merchant(String name, String phoneNum, String email, String merchantStoreName, String merchantPassword, String merchantAddress, int merchantImage) {
+        super(name, phoneNum, email);
         this.merchantStoreName = merchantStoreName;
         this.merchantPassword = merchantPassword;
-        this.merchantEmail = merchantEmail;
-        this.merchantAddress = merchantAddress;
-        this.merchantImage = merchantImage;
-    }
-
-    public Merchant(Parcel in, String merchantStoreName, String merchantPassword, String merchantEmail, String merchantAddress, int merchantImage) {
-        super(in);
-        this.merchantStoreName = merchantStoreName;
-        this.merchantPassword = merchantPassword;
-        this.merchantEmail = merchantEmail;
         this.merchantAddress = merchantAddress;
         this.merchantImage = merchantImage;
     }
@@ -32,9 +21,22 @@ public class Merchant extends PersonModel implements Parcelable{
         super(in);
         merchantStoreName = in.readString();
         merchantPassword = in.readString();
-        merchantEmail = in.readString();
         merchantAddress = in.readString();
         merchantImage = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(merchantStoreName);
+        dest.writeString(merchantPassword);
+        dest.writeString(merchantAddress);
+        dest.writeInt(merchantImage);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Merchant> CREATOR = new Creator<Merchant>() {
@@ -65,14 +67,6 @@ public class Merchant extends PersonModel implements Parcelable{
         this.merchantPassword = merchantPassword;
     }
 
-    public String getMerchantEmail() {
-        return merchantEmail;
-    }
-
-    public void setMerchantEmail(String merchantEmail) {
-        this.merchantEmail = merchantEmail;
-    }
-
     public String getMerchantAddress() {
         return merchantAddress;
     }
@@ -89,17 +83,4 @@ public class Merchant extends PersonModel implements Parcelable{
         this.merchantImage = merchantImage;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(merchantStoreName);
-        dest.writeString(merchantPassword);
-        dest.writeString(merchantEmail);
-        dest.writeString(merchantAddress);
-        dest.writeInt(merchantImage);
-    }
 }

@@ -52,6 +52,7 @@ public class MerchantListAdapter extends RecyclerView.Adapter<MerchantListAdapte
         public final TextView tv_merchant_name;
         public final TextView tv_merchant_address;
         public final TextView tv_merchant_phonenum;
+        public final TextView tv_merchant_email;
         public ImageView iv_merchant_image;
         public OnClickListener onClickListener;
 
@@ -61,6 +62,7 @@ public class MerchantListAdapter extends RecyclerView.Adapter<MerchantListAdapte
             tv_merchant_address = view.findViewById(R.id.tv_merchant_address);
             iv_merchant_image = view.findViewById(R.id.iv_merchant_image);
             tv_merchant_phonenum = view.findViewById(R.id.tv_merchant_phonenum);
+            tv_merchant_email = view.findViewById(R.id.tv_merchant_email);
 
             this.onClickListener = onClickListener;
             itemView.setOnClickListener(this);
@@ -70,6 +72,7 @@ public class MerchantListAdapter extends RecyclerView.Adapter<MerchantListAdapte
             tv_merchant_name.setText(merchant.getMerchantStoreName());
             tv_merchant_address.setText(merchant.getMerchantAddress());
             tv_merchant_phonenum.setText(merchant.getPhoneNum());
+            tv_merchant_email.setText(merchant.getEmail());
             //setImageView
             //iv_merchant_image.
         }
@@ -81,6 +84,6 @@ public class MerchantListAdapter extends RecyclerView.Adapter<MerchantListAdapte
     }
 
     public interface OnClickListener {
-        public void onClick(int pos);
+        void onClick(int pos);
     }
 }

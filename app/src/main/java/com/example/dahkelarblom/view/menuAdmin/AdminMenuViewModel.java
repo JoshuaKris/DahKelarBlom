@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.dahkelarblom.model.BookingModel;
 import com.example.dahkelarblom.model.Customer;
 import com.example.dahkelarblom.model.Merchant;
+import com.example.dahkelarblom.model.PersonModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +35,14 @@ public class AdminMenuViewModel extends ViewModel {
         List<BookingModel> temp = new ArrayList<>();
         BookingModel model;
 
-        Customer customer = new Customer("Budi","081808280838");
+        Customer customer = new Customer("Budi","081808280838","budi.budiawan@gmail.com");
 
         Merchant merchant = new Merchant(
                 "Zenta Admin",
                 "(021) 53660671",
+                "zenta.print@gmail.com",
                 "Zenta Print",
                 "Zenta123",
-                "zenta.print@gmail.com",
                 "Jl. Anggrek Cakra No.16 RT.2/RW.9 (Binus Anggrek B Floor)",
                 0);
 

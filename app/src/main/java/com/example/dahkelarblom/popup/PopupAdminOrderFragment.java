@@ -125,6 +125,8 @@ public class PopupAdminOrderFragment extends DialogFragment {
             }
         });
 
+        //hide file button
+        bt_file.setVisibility(View.GONE);
         bt_file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dahkelarblom.DialogChooseFragment;
+import com.example.dahkelarblom.model.Merchant;
 import com.example.dahkelarblom.utils.BaseActivity;
 import com.example.dahkelarblom.utils.HeaderFragment;
 import com.example.dahkelarblom.popup.PopupSuccessFragment;
@@ -41,14 +42,15 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
 
     private HeaderFragment headerFragment;
     private ImageButton ib_backButton;
-    private RelativeLayout rl_order_choose;
+    private RelativeLayout rl_order_choose, rl_fileChooser;
     private Button bt_order, bt_uploadFile;
     private TextView tv_price_estimation, tv_file_name, tv_file_pages, tv_hint_order_choose;
-    private EditText et_bioName, et_bioPhoneNum, et_bioDate;
+    private EditText et_bioName, et_bioPhoneNum, et_bioDate, et_bioAddInfo;
 
     private final int GET_PDF_KEY = 0;
     private static final int PERMSISSION_REQUEST = 100;
     private String dialogInput = "";
+    private Merchant merchantThis;
 
     private final ArrayList<DialogItem> dialogItemList = new ArrayList<>();
     private DialogChooseFragment dialogChooseFragment;
@@ -68,11 +70,13 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
+        merchantThis = getIntent().getParcelableExtra("merchant_detail");
         createItem();
 
         headerFragment = (HeaderFragment) getSupportFragmentManager().findFragmentById(R.id.f_header);
         ib_backButton = Objects.requireNonNull(headerFragment.getView()).findViewById(R.id.ib_backButton);
         rl_order_choose = findViewById(R.id.rl_order_choose);
+        rl_fileChooser = findViewById(R.id.rl_fileChooser);
         tv_hint_order_choose = findViewById(R.id.tv_hint_order_choose);
         tv_price_estimation = findViewById(R.id.tv_priceEstimation);
         bt_order = findViewById(R.id.bt_order);
@@ -82,6 +86,7 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
         et_bioName = findViewById(R.id.et_bioName);
         et_bioPhoneNum = findViewById(R.id.et_bioPhoneNum);
         et_bioDate = findViewById(R.id.et_bioDate);
+        et_bioAddInfo = findViewById(R.id.et_bioAddInfo);
 
         headerFragment.headerV2("Order",false,false);
         tv_hint_order_choose.setText(DEFAULT_ORDER_TEXT_KEY);
@@ -107,9 +112,8 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
             @Override
             public void onClick(View v) {
                 if (!isEquals(tv_hint_order_choose,DEFAULT_ORDER_TEXT_KEY) && isNotEmpty(et_bioName) &&
-                    isNotEmpty(et_bioPhoneNum) && isNotEmpty(et_bioDate) &&
-                        !tv_file_name.getText().toString().isEmpty()) {
-                    popupSuccessFragment = PopupSuccessFragment.newInstance("WD420");
+                    isNotEmpty(et_bioPhoneNum) && isNotEmpty(et_bioDate) && isNotEmpty(et_bioAddInfo)) {
+                    popupSuccessFragment = PopupSuccessFragment.newInstance("WD420",merchantThis.getEmail());
                     popupSuccessFragment.show(getSupportFragmentManager(), "popupSuccess");
                     popupSuccessFragment.setListener(popupListener);
                 }
@@ -119,6 +123,8 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
             }
         });
 
+        //hide upload button
+        rl_fileChooser.setVisibility(View.GONE);
         bt_uploadFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

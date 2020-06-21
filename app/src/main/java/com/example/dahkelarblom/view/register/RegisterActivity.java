@@ -2,6 +2,7 @@ package com.example.dahkelarblom.view.register;
 
 
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -72,13 +73,14 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (isNotEmpty(et_merchant_name_field) && isNotEmpty(et_merchant_id_field) && isNotEmpty(et_merchant_password_field) &&
-                        isNotEmpty(et_merchant_email_field) && isNotEmpty(et_merchant_phone_field) && isNotEmpty(et_merchant_address_field)) {
+                        isNotEmpty(et_merchant_email_field) && (Patterns.EMAIL_ADDRESS.matcher(et_merchant_email_field.getText().toString()).matches())
+                        && isNotEmpty(et_merchant_phone_field) && isNotEmpty(et_merchant_address_field)) {
                     popupRegisterFragment = PopupRegisterFragment.newInstance();
                     popupRegisterFragment.show(getSupportFragmentManager(),"register success");
                     popupRegisterFragment.setListener(popupRegisterListener);
                       }
                 else {
-                    Toast.makeText(RegisterActivity.this, "Data masih ada yang belum diisi, silakan isi dahulu sebelum mendaftar", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Data masih ada yang belum diisi atau masih salah, silakan isi dahulu sebelum mendaftar", Toast.LENGTH_SHORT).show();
 
                 }
             }

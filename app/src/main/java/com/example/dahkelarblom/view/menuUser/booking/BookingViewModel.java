@@ -33,14 +33,14 @@ public class BookingViewModel extends ViewModel {
     public void fetchBookingData(boolean exist) {
         List<BookingModel> temp = new ArrayList<>();
         BookingModel model;
-        Customer customer = new Customer("Budi","081808280838");
+        Customer customer = new Customer("Budi","081808280838","budi.budiawan@gmail.com");
 
         Merchant merchant = new Merchant(
                 "Zenta Admin",
                 "(021) 53660671",
+                "zenta.print@gmail.com",
                 "Zenta Print",
                 "Zenta123",
-                "zenta.print@gmail.com",
                 "Jl. Anggrek Cakra No.16 RT.2/RW.9 (Binus Anggrek B Floor)",
                 0);
 

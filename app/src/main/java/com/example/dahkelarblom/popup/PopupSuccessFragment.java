@@ -1,8 +1,12 @@
 package com.example.dahkelarblom.popup;
 
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,10 +26,11 @@ import java.util.Objects;
 public class PopupSuccessFragment extends DialogFragment {
 
     private static String POPUP_BOOKING_CODE_ = "popup_booking_code";
+    private static String POPUP_FROM_ADMIN_ = "popup_from_admin";
 
     private Button bt_ok;
-    private TextView tv_booking_code;
-    private String popupBookingCode;
+    private TextView tv_booking_code, tv_email_text, tv_merchant_email;
+    private String popupBookingCode, merchantEmail;
     private PopupListener mPopupListener;
 
     public PopupSuccessFragment() {
@@ -39,12 +44,21 @@ public class PopupSuccessFragment extends DialogFragment {
         fragment.setArguments(args);
         return fragment;
     }
+    public static PopupSuccessFragment newInstance(String title, String merchantEmail) {
+        PopupSuccessFragment fragment = new PopupSuccessFragment();
+        Bundle args = new Bundle();
+        args.putString(POPUP_BOOKING_CODE_,title);
+        args.putString(POPUP_FROM_ADMIN_,merchantEmail);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             popupBookingCode = getArguments().getString(POPUP_BOOKING_CODE_);
+            merchantEmail = getArguments().getString(POPUP_FROM_ADMIN_);
         }
 
     }
@@ -60,8 +74,19 @@ public class PopupSuccessFragment extends DialogFragment {
 
         bt_ok = fragmentView.findViewById(R.id.bt_popup_ok);
         tv_booking_code = fragmentView.findViewById(R.id.tv_booking_code);
+        tv_email_text = fragmentView.findViewById(R.id.tv_email_text);
+        tv_merchant_email = fragmentView.findViewById(R.id.tv_merchant_email);
 
-        tv_booking_code.setText(String.format("Kode Booking mu adalah %1$s",popupBookingCode));
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
+        builder.append("Kode Booking mu adalah ").append(popupBookingCode,boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tv_booking_code.setText(builder);
+        if (merchantEmail != null) {
+            tv_merchant_email.setText(merchantEmail);
+        } else {
+            tv_email_text.setVisibility(View.GONE);
+            tv_merchant_email.setVisibility(View.GONE);
+        }
 
         bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override

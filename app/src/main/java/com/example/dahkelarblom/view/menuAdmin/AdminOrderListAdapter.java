@@ -67,8 +67,8 @@ public class AdminOrderListAdapter extends RecyclerView.Adapter<AdminOrderListAd
         }
 
         public void bind(BookingModel bookingModel){
-            tv_itemName.setText(bookingModel.getMerchantToBook().getMerchantStoreName());
-            tv_content.setText(bookingModel.getMerchantToBook().getMerchantAddress());
+            tv_itemName.setText(bookingModel.getCustomer().getName());
+            tv_content.setText(bookingModel.getCustomer().getPhoneNum());
             tv_bookingCode.setText(bookingModel.getBookingCode());
             tv_bookingPickup.setText(bookingModel.getBookingPickupTime());
             tv_bookingPrice.setText(bookingModel.getBookingPrice());

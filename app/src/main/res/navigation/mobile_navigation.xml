@@ -11,11 +11,12 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
-    <fragment
-        android:id="@+id/navigation_booking"
-        android:name="com.example.dahkelarblom.view.menuUser.booking.BookingFragment"
-        android:label="@string/title_booking"
-        tools:layout="@layout/fragment_booking" />
+<!--    hide booking tab-->
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_booking"-->
+<!--        android:name="com.example.dahkelarblom.view.menuUser.booking.BookingFragment"-->
+<!--        android:label="@string/title_booking"-->
+<!--        tools:layout="@layout/fragment_booking" />-->
 
     <fragment
         android:id="@+id/navigation_tracking"

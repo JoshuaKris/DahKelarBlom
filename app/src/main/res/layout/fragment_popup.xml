@@ -46,6 +46,28 @@
         android:textSize="14sp"
         android:textColor="@android:color/primary_text_light"/>
 
+    <TextView
+        android:id="@+id/tv_email_text"
+        android:layout_below="@id/tv_booking_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:text="Silakan Screenshot kode booking ini dan kirim file beserta kode booking ke email berikut : "
+        android:textSize="14sp"
+        android:textColor="@android:color/primary_text_light" />
+    <TextView
+        android:id="@+id/tv_merchant_email"
+        android:layout_below="@id/tv_email_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_centerHorizontal="true"
+        android:text="argenta.print@gmail.com"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark"/>
+
     <ImageView
         android:id="@+id/iv_popup_status"
         android:layout_below="@id/tv_popup_message"
@@ -58,8 +80,8 @@
 
     <Button
         android:id="@+id/bt_popup_ok"
-        android:layout_below="@id/tv_booking_code"
-        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_merchant_email"
+        android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"

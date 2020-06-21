@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.Merchant;
@@ -86,7 +87,9 @@ public class MerchantListFragment extends Fragment implements MerchantListAdapte
 
     @Override
     public void onClick(int pos) {
-        startActivity(new Intent(getActivity(),OrderActivity.class));
+        Intent intent = new Intent(getActivity(),OrderActivity.class);
+        intent.putExtra("merchant_detail",merchantArrayList.get(pos));
+        startActivity(intent);
     }
 
     public interface OnListFragmentInteractionListener {
