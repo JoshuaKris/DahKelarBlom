@@ -60,7 +60,7 @@ public class RegisterActivity extends BaseActivity {
         et_merchant_phone_field = findViewById(R.id.et_merchant_phone_field);
         et_merchant_address_field = findViewById(R.id.et_merchant_address_field);
 
-        headerFragment.headerV2("Register",false,false);
+        headerFragment.headerV2("Daftar",false,false);
 
         ib_backButton.setOnClickListener(new View.OnClickListener() {
             @Override
