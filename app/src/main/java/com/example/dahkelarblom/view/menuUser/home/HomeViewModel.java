@@ -1,22 +1,35 @@
 package com.example.dahkelarblom.view.menuUser.home;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.dahkelarblom.model.Merchant;
+import com.example.dahkelarblom.service.InternetService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeViewModel extends ViewModel {
+
+    private final InternetService internetService;
+    private Call<String> apiCall;
 
     private MutableLiveData<String> mText = new MutableLiveData<>();
     private MutableLiveData<List<Merchant>> merchantList = new MutableLiveData<>();
     private MutableLiveData<List<String>> locationList = new MutableLiveData<>();
 
-    public HomeViewModel() {
+    private MutableLiveData<String> testMerchantList = new MutableLiveData<>();
+
+    public HomeViewModel(Context context) {
         //still looking
+        internetService = new InternetService(context);
     }
 
     public LiveData<String> getText() {
@@ -29,6 +42,10 @@ public class HomeViewModel extends ViewModel {
 
     public LiveData<List<String>> getLocationList() {
         return locationList;
+    }
+
+    public LiveData<String> getTestMerchantList() {
+        return testMerchantList;
     }
 
     public void fetchText(String text) {
@@ -138,4 +155,23 @@ public class HomeViewModel extends ViewModel {
         temp.add("Bekasi");
         locationList.setValue(temp);
     }
+
+    public void fetchMerchantList() {
+        apiCall = InternetService.getServicesApi().getAllMerchant();
+        apiCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    String s = response.body();
+                    testMerchantList.setValue(s);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

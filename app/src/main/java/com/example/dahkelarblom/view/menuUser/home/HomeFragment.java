@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.dahkelarblom.BaseVMF;
 import com.example.dahkelarblom.DialogChooseFragment;
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.DialogItem;
@@ -39,20 +41,28 @@ public class HomeFragment extends Fragment implements DialogChooseFragment.OnInp
     private ImageView iv_location;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        BaseVMF factory = new BaseVMF<>(new HomeViewModel(getContext()));
+        homeViewModel = ViewModelProviders.of(this,factory).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        homeViewModel.fetchText("Pilih Wilayah");
-        homeViewModel.fetchMerchantData();
-        homeViewModel.fetchLocationData();
+        initLiveData();
+//        homeViewModel.fetchText("Pilih Wilayah");
+//        homeViewModel.fetchMerchantData();
+//        homeViewModel.fetchLocationData();
+        homeViewModel.fetchMerchantList();
 
         tv_location = root.findViewById(R.id.tv_locationName);
         fl_merchantsList = root.findViewById(R.id.fl_merchantsList);
         cv_location_here = root.findViewById(R.id.cv_location_here);
         iv_location = root.findViewById(R.id.iv_location);
 
-        initLiveData();
 
         return root;
     }
@@ -104,6 +114,15 @@ public class HomeFragment extends Fragment implements DialogChooseFragment.OnInp
                         item = new DialogItem(loc,false);
                         dialogItemList.add(item);
                     }
+                }
+            }
+        });
+
+        homeViewModel.getTestMerchantList().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (s != null) {
+                    Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 }
             }
         });

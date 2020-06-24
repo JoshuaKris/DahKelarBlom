@@ -1,6 +1,7 @@
 package com.example.dahkelarblom.view.menuAdmin;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -10,16 +11,26 @@ import com.example.dahkelarblom.model.BookingModel;
 import com.example.dahkelarblom.model.Customer;
 import com.example.dahkelarblom.model.Merchant;
 import com.example.dahkelarblom.model.PersonModel;
+import com.example.dahkelarblom.model.responses.viewAllOrder.ViewAllOrderResponse;
+import com.example.dahkelarblom.service.InternetService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AdminMenuViewModel extends ViewModel {
+
+    private final InternetService internetService;
+    private Call<String> apiCall;
 
     private MutableLiveData<String> mText = new MutableLiveData<>();
     private MutableLiveData<List<BookingModel>> orderList = new MutableLiveData<>();
 
-    public AdminMenuViewModel() {
+    public AdminMenuViewModel(Context context) {
+        internetService = new InternetService(context);
     }
 
     public LiveData<String> getmText() {
@@ -62,5 +73,20 @@ public class AdminMenuViewModel extends ViewModel {
         } else {
             mText.setValue("No Booking appointment");
         }
+    }
+
+    public void getOrder() {
+        Call<ViewAllOrderResponse> apiCall = InternetService.getServicesApi().getAllOrder();
+        apiCall.enqueue(new Callback<ViewAllOrderResponse>() {
+            @Override
+            public void onResponse(Call<ViewAllOrderResponse> call, Response<ViewAllOrderResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ViewAllOrderResponse> call, Throwable t) {
+
+            }
+        });
     }
 }
