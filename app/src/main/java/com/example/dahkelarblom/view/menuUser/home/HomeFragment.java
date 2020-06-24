@@ -53,9 +53,9 @@ public class HomeFragment extends Fragment implements DialogChooseFragment.OnInp
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         initLiveData();
-//        homeViewModel.fetchText("Pilih Wilayah");
+        homeViewModel.fetchText("Pilih Wilayah");
 //        homeViewModel.fetchMerchantData();
-//        homeViewModel.fetchLocationData();
+        homeViewModel.fetchLocationData();
         homeViewModel.fetchMerchantList();
 
         tv_location = root.findViewById(R.id.tv_locationName);
