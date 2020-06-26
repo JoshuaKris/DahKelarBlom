@@ -11,6 +11,10 @@ import com.example.dahkelarblom.view.login.LoginActivity;
 import com.example.dahkelarblom.view.menuUser.UserMenuActivity;
 import com.google.android.material.card.MaterialCardView;
 
+/**
+ * Created By Joshua Kris
+ * 6 - 27 - 2020
+ */
 public class AuthActivity extends AppCompatActivity {
 
 
