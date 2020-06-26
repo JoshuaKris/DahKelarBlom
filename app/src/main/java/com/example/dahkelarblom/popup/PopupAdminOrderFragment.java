@@ -22,6 +22,7 @@ import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.SpinnerStatusAdapter;
 import com.example.dahkelarblom.model.BookingModel;
 import com.example.dahkelarblom.model.SpinnerStatus;
+import com.example.dahkelarblom.model.responses.ViewAllOrderResponse;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -29,13 +30,13 @@ import java.util.Objects;
 public class PopupAdminOrderFragment extends DialogFragment {
 
     private PopupAdminOrderListener mPopupListener;
-    private BookingModel mItem;
+    private ViewAllOrderResponse mItem;
 
     private ImageView iv_close;
     private TextView
             tv_bookingCode,
             tv_bookingPickup,
-            tv_bookingPrice,
+            tv_bookingInfo,
             tv_userName,
             tv_userPhone,
             tv_payment_status;
@@ -48,7 +49,7 @@ public class PopupAdminOrderFragment extends DialogFragment {
         // Required empty public constructor
     }
 
-    public static PopupAdminOrderFragment newInstance(BookingModel item) {
+    public static PopupAdminOrderFragment newInstance(ViewAllOrderResponse item) {
         PopupAdminOrderFragment fragment = new PopupAdminOrderFragment();
         Bundle args = new Bundle();
         args.putParcelable("item",item);
@@ -72,7 +73,7 @@ public class PopupAdminOrderFragment extends DialogFragment {
         iv_close = fragmentView.findViewById(R.id.iv_close);
         tv_bookingCode = fragmentView.findViewById(R.id.tv_bookingCode);
         tv_bookingPickup = fragmentView.findViewById(R.id.tv_bookingPickup);
-        tv_bookingPrice = fragmentView.findViewById(R.id.tv_bookingPrice);
+        tv_bookingInfo = fragmentView.findViewById(R.id.tv_bookingInfo);
         tv_userName = fragmentView.findViewById(R.id.tv_userName);
         tv_userPhone = fragmentView.findViewById(R.id.tv_userPhone);
         tv_payment_status = fragmentView.findViewById(R.id.tv_payment_status);
@@ -81,6 +82,8 @@ public class PopupAdminOrderFragment extends DialogFragment {
         spinner_status = fragmentView.findViewById(R.id.spinner_status);
 
         list = new ArrayList<>();
+        list.add(new SpinnerStatus("file belum diterima",false));
+        list.add(new SpinnerStatus("file sudah diterima",false));
         list.add(new SpinnerStatus("belum diproses",false));
         list.add(new SpinnerStatus("sedang diproses",false));
         list.add(new SpinnerStatus("sudah selesai",false));
@@ -88,18 +91,18 @@ public class PopupAdminOrderFragment extends DialogFragment {
         if (getArguments() != null) {
             mItem = getArguments().getParcelable("item");
             if (mItem != null) {
-                tv_bookingCode.setText(mItem.getBookingCode());
-                tv_bookingPickup.setText(mItem.getBookingPickupTime());
-                tv_bookingPrice.setText(mItem.getBookingPrice());
-                tv_userName.setText(mItem.getCustomer().getName());
-                tv_userPhone.setText(mItem.getCustomer().getPhoneNum());
-                tv_payment_status.setText(mItem.getCustomerPaymentStatus());
+                tv_bookingCode.setText(mItem.getCodeBooking());
+                tv_bookingPickup.setText(mItem.getPengambilanOrder());
+                tv_bookingInfo.setText(mItem.getKeterangan());
+                tv_userName.setText(mItem.getUsername());
+                tv_userPhone.setText(mItem.getNoHp());
+                tv_payment_status.setText("");
 
                 spinnerAdapter = new SpinnerStatusAdapter(getContext(),list);
                 spinner_status.setAdapter(spinnerAdapter);
 
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getStatus().equals(mItem.getBookingStatus())) {
+                    if (list.get(i).getStatus().equals(mItem.getStatus())) {
                         spinner_status.setSelection(i);
                     }
                 }
@@ -119,7 +122,7 @@ public class PopupAdminOrderFragment extends DialogFragment {
             public void onClick(View v) {
                 Objects.requireNonNull(getDialog()).dismiss();
                 if (mPopupListener != null) {
-                    mItem.setBookingStatus(list.get(spinner_status.getSelectedItemPosition()).getStatus());
+                    mItem.setStatus(list.get(spinner_status.getSelectedItemPosition()).getStatus());
                     mPopupListener.okClicked(true, mItem);
                 }
             }
@@ -161,6 +164,6 @@ public class PopupAdminOrderFragment extends DialogFragment {
     }
 
     public interface PopupAdminOrderListener {
-        void okClicked(boolean isClicked, BookingModel item);
+        void okClicked(boolean isClicked, ViewAllOrderResponse item);
     }
 }

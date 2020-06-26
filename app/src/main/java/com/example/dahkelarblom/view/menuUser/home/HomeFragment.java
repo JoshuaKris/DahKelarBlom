@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,11 +19,10 @@ import com.example.dahkelarblom.BaseVMF;
 import com.example.dahkelarblom.DialogChooseFragment;
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.DialogItem;
-import com.example.dahkelarblom.model.Merchant;
+import com.example.dahkelarblom.model.responses.ViewAllMerchants;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.HashMap;
 
 public class HomeFragment extends Fragment implements DialogChooseFragment.OnInputListener {
 
@@ -32,8 +30,9 @@ public class HomeFragment extends Fragment implements DialogChooseFragment.OnInp
     private final ArrayList<DialogItem> dialogItemList = new ArrayList<>();
     private String dialogInput = "";
     private DialogChooseFragment dialogChooseFragment;
-    private List<Merchant> merchantSwap = new ArrayList<>();
-    private List<Merchant> merchantTemp = new ArrayList<>();
+    private ArrayList<ViewAllMerchants> merchantSwap = new ArrayList<>();
+    private ArrayList<ViewAllMerchants> merchantTemp = new ArrayList<>();
+    private HashMap<Integer, String> locationListTemp = new HashMap<>();
 
     private TextView tv_location;
     private FrameLayout fl_merchantsList;
@@ -48,10 +47,9 @@ public class HomeFragment extends Fragment implements DialogChooseFragment.OnInp
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
         BaseVMF factory = new BaseVMF<>(new HomeViewModel(getContext()));
         homeViewModel = ViewModelProviders.of(this,factory).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-
         initLiveData();
         homeViewModel.fetchText("Pilih Wilayah");
 //        homeViewModel.fetchMerchantData();
@@ -95,34 +93,26 @@ public class HomeFragment extends Fragment implements DialogChooseFragment.OnInp
             }
         });
 
-        homeViewModel.getMerchantList().observe(getViewLifecycleOwner(), new Observer<List<Merchant>>() {
+        homeViewModel.getLocationList().observe(getViewLifecycleOwner(), new Observer<HashMap<Integer, String>>() {
             @Override
-            public void onChanged(List<Merchant> merchantList) {
-                if (merchantList != null) {
-                    merchantTemp = merchantList;
-                    replaceFragment(MerchantListFragment.newInstance((ArrayList<Merchant>) merchantList));
-                }
-            }
-        });
-
-        homeViewModel.getLocationList().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> locationList) {
+            public void onChanged(HashMap<Integer, String> locationList) {
                 if (locationList != null) {
+                    locationListTemp = locationList;
                     DialogItem item;
-                    for (String loc : locationList) {
-                        item = new DialogItem(loc,false);
+                    for (int i = 0; i < locationList.size(); i++) {
+                        item = new DialogItem(locationList.get(i+1),false);
                         dialogItemList.add(item);
                     }
                 }
             }
         });
 
-        homeViewModel.getTestMerchantList().observe(getViewLifecycleOwner(), new Observer<String>() {
+        homeViewModel.getTestMerchantList().observe(getViewLifecycleOwner(), new Observer<ArrayList<ViewAllMerchants>>() {
             @Override
-            public void onChanged(String s) {
-                if (s != null) {
-                    Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+            public void onChanged(ArrayList<ViewAllMerchants> viewAllMerchants) {
+                if (viewAllMerchants != null) {
+                    merchantTemp = viewAllMerchants;
+                    replaceFragment(MerchantListFragment.newInstance(viewAllMerchants));
                 }
             }
         });
@@ -131,18 +121,25 @@ public class HomeFragment extends Fragment implements DialogChooseFragment.OnInp
     @Override
     public void sendInput(String input) {
         dialogInput = input;
+        String locId = "1";
         if (dialogInput.equals("Pilih Wilayah")) {
             iv_location.setVisibility(View.GONE);
         } else {
             tv_location.setText(dialogInput);
             iv_location.setVisibility(View.VISIBLE);
             merchantSwap.clear();
-            for (Merchant merchant : merchantTemp) {
-                if (merchant.getMerchantAddress().contains(dialogInput)) {
+            for (Integer key : locationListTemp.keySet()) {
+                String val = locationListTemp.get(key);
+                if (dialogInput.equalsIgnoreCase(val)) {
+                    locId = String.valueOf(key);
+                }
+            }
+            for (ViewAllMerchants merchant : merchantTemp) {
+                if (merchant.getMerchantLocationId().equalsIgnoreCase(locId)) {
                     merchantSwap.add(merchant);
                 }
             }
-            replaceFragment(MerchantListFragment.newInstance((ArrayList<Merchant>) merchantSwap));
+            replaceFragment(MerchantListFragment.newInstance((ArrayList<ViewAllMerchants>) merchantSwap));
         }
     }
 }

@@ -1,89 +1,66 @@
 package com.example.dahkelarblom.service;
 
-import com.example.dahkelarblom.model.responses.viewAllOrder.ViewAllOrderResponse;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public interface ServicesApi {
-
-   //get all order
-    @GET("orders/viewallorder")
-    Call<ViewAllOrderResponse> getAllOrder();
 
     //get all merchant
     @GET("/merchants/viewall")
     Call<String> getAllMerchant();
 
-    //track booking
-    @POST()
-    @FormUrlEncoded
-    Call<String> trackMyBooking(
-            @Field("kode") String kode
-    );
-
     //login admin
-    @POST()
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
+    @POST("/admins/testingLogin")
     Call<String> loginAdmin(
-            @Field("username") String username,
-            @Field("password") String password
+            @Body JsonObject requestBody
     );
 
     //register admin
-    @POST()
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
+    @POST("/admins/registrasi")
     Call<String> registerAdmin(
-            @Field("merchantName") String merchantName,
-            @Field("username") String username,
-            @Field("password") String password,
-            @Field("email") String email,
-            @Field("merchantPhoneNum") String merchantPhoneNum,
-            @Field("merchantAddress") String merchantAddress
+            @Body JsonObject requestBody
     );
 
     //get order of admin
-    @GET()
+    @Headers("Content-Type: application/json")
+    @POST("/admins/viewordermerchant")
     Call<String> getAdminOrderList(
-            @Query("usename") String username,
-            @Query("id") String id
+            @Body JsonObject requestBody
     );
 
     //change status of admin booking
-    @POST()
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
+    @POST("/admins/changeStatus")
     Call<String> changeBookingStatus(
-            @Field("id") String bookingId,
-            @Field("username") String username,
-            @Field("status") String status
+            @Body JsonObject requestBody
     );
 
 
     //order from admin
-    @POST()
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
+    @POST("/admins/inputsOrder")
     Call<String> adminAddOrder(
-            @Field("orderType") String orderType,
-            @Field("name") String name,
-            @Field("phoneNum") String phoneNum,
-            @Field("price") String price,
-            @Field("estimation") String estimation,
-            @Field("paymentStatus") String paymentStatus
+            @Body JsonObject requestBody
     );
 
     //order from user
-    @POST()
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
+    @POST("/orders/inputOrder")
     Call<String> userAddOrder(
-            @Field("orderType") String orderType,
-            @Field("name") String name,
-            @Field("phoneNum") String phoneNum,
-            @Field("estimation") String estimation,
-            @Field("info") String info
+            @Body JsonObject requestBody
     );
 
+    //track booking
+    @Headers("Content-Type: application/json")
+    @POST("/orders/tracking")
+    Call<String> trackMyBooking(
+            @Body JsonObject requestBody
+    );
 }

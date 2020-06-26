@@ -9,23 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dahkelarblom.R;
-import com.example.dahkelarblom.model.Merchant;
-import com.example.dahkelarblom.view.menuUser.home.MerchantListFragment.OnListFragmentInteractionListener;
+import com.example.dahkelarblom.model.responses.ViewAllMerchants;
 
 import java.util.List;
 
 public class MerchantListAdapter extends RecyclerView.Adapter<MerchantListAdapter.ViewHolder> {
 
-    private List<Merchant> mValues;
-    private OnListFragmentInteractionListener mListener;
+    private List<ViewAllMerchants> mValues;
     private OnClickListener onClickListener;
 
-    public MerchantListAdapter(List<Merchant> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
-    }
-
-    public MerchantListAdapter(List<Merchant> merchantList, OnClickListener onClickListener) {
+    public MerchantListAdapter(List<ViewAllMerchants> merchantList, OnClickListener onClickListener) {
         mValues = merchantList;
         this.onClickListener = onClickListener;
     }
@@ -68,11 +61,11 @@ public class MerchantListAdapter extends RecyclerView.Adapter<MerchantListAdapte
             itemView.setOnClickListener(this);
         }
 
-        public void bind(Merchant merchant){
-            tv_merchant_name.setText(merchant.getMerchantStoreName());
-            tv_merchant_address.setText(merchant.getMerchantAddress());
+        public void bind(ViewAllMerchants merchant){
+            tv_merchant_name.setText(merchant.getMerchantName());
+            tv_merchant_address.setText(merchant.getMerchantLocation());
             tv_merchant_phonenum.setText(merchant.getPhoneNum());
-            tv_merchant_email.setText(merchant.getEmail());
+            tv_merchant_email.setText(merchant.getMerchantEmail());
             //setImageView
             //iv_merchant_image.
         }

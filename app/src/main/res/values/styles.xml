@@ -31,5 +31,14 @@
         <item name="itemBackground">@color/colorPrimary</item>
     </style>
 
+    <!--for bottom navbar-->
+    <style name="TimePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="windowActionBar">true</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
 
 </resources>

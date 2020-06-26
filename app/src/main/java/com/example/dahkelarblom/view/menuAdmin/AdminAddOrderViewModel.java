@@ -2,9 +2,12 @@ package com.example.dahkelarblom.view.menuAdmin;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.dahkelarblom.service.InternetService;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,18 +17,25 @@ public class AdminAddOrderViewModel extends ViewModel {
 
     private final InternetService internetService;
     private Call<String> apiCall;
+    private MutableLiveData<String> adminAddOrder = new MutableLiveData<>();
+    private Context context;
 
     public AdminAddOrderViewModel(Context context) {
+        this.context = context;
         this.internetService = new InternetService(context);
     }
 
-    public void postAdminOrder(String orderType,String name,String phoneNum,String price,String estimation,String paymentStatus) {
-        apiCall = InternetService.getServicesApi().adminAddOrder(orderType,name,phoneNum,price,estimation,paymentStatus);
+    public LiveData<String> getAdminAddOrder() {
+        return adminAddOrder;
+    }
+
+    public void postAdminOrder(JsonObject jsonObject) {
+        apiCall = InternetService.getServicesApi().adminAddOrder(jsonObject);
         apiCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
-
+                    adminAddOrder.setValue(response.body());
                 }
             }
 

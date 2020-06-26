@@ -121,7 +121,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_container_order_price"
+            android:id="@+id/ll_container_order_info"
             android:layout_below="@id/ll_container_order_phone"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
@@ -131,40 +131,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Harga"
+                android:text="Keterangan"
                 android:textSize="16sp"
                 android:textColor="@color/textColorLabel"/>
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_order_price_field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_box_normal"
-                android:padding="4dp"
-                android:layout_marginTop="4dp"
-                android:textSize="16sp"
-                android:textColor="@color/textColorLabel"
-                android:inputType="number"
-                android:lines="1"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_container_order_pickup"
-            android:layout_below="@id/ll_container_order_price"
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Estimasi Pengerjaan"
-                android:textSize="16sp"
-                android:textColor="@color/textColorLabel"/>
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_order_pickup_field"
+                android:id="@+id/et_order_info_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_box_normal"
@@ -177,8 +149,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_container_order_payment_status"
-            android:layout_below="@id/ll_container_order_pickup"
+            android:id="@+id/ll_container_order_pickup"
+            android:layout_below="@id/ll_container_order_info"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -187,26 +159,55 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status Pembayaran"
+                android:text="Estimasi Order Selesai"
                 android:textSize="16sp"
                 android:textColor="@color/textColorLabel"/>
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_order_payment_status_field"
+                android:id="@+id/et_order_pickup_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_box_normal"
                 android:padding="4dp"
+                android:focusable="false"
                 android:layout_marginTop="4dp"
                 android:textSize="16sp"
                 android:textColor="@color/textColorLabel"
-                android:inputType="textAutoComplete"
+                android:inputType="text"
                 android:lines="1"/>
         </LinearLayout>
 
+<!--        <LinearLayout-->
+<!--            android:id="@+id/ll_container_order_payment_status"-->
+<!--            android:layout_below="@id/ll_container_order_pickup"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Status Pembayaran"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="@color/textColorLabel"/>-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/et_order_payment_status_field"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/edittext_box_normal"-->
+<!--                android:padding="4dp"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="@color/textColorLabel"-->
+<!--                android:inputType="textAutoComplete"-->
+<!--                android:lines="1"/>-->
+<!--        </LinearLayout>-->
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_button_add_order"
-            android:layout_below="@id/ll_container_order_payment_status"
+            android:layout_below="@id/ll_container_order_pickup"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"

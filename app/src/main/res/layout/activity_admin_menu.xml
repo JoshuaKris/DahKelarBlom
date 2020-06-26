@@ -20,8 +20,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_order_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"/>
+        android:layout_height="match_parent"
+        android:layout_above="@id/rl_add_order"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layoutManager="LinearLayoutManager" />
 
     <RelativeLayout
         android:id="@+id/rl_add_order"

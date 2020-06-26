@@ -9,20 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.BookingModel;
-import com.example.dahkelarblom.view.menuUser.home.MerchantListFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 
 public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.ViewHolder> {
 
     private List<BookingModel> mValues;
-    private OnListFragmentInteractionListener mListener;
     private BookingListOnClickListener onClickListener;
-
-    public BookingListAdapter(List<BookingModel> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
-    }
 
     public BookingListAdapter(List<BookingModel> merchantList, BookingListOnClickListener onClickListener) {
         mValues = merchantList;

@@ -1,5 +1,6 @@
 package com.example.dahkelarblom;
 
+import android.app.Dialog;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dahkelarblom.model.DialogItem;
+import com.example.dahkelarblom.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -43,6 +45,21 @@ public class DialogChooseFragment extends DialogFragment implements DialogChoose
         DialogChooseFragment fragment = new DialogChooseFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(DATA_, dataFilter);
+        args.putString(TITLE_,title);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static DialogChooseFragment newInstance(String[] dataFilter, String title) {
+        DialogChooseFragment fragment = new DialogChooseFragment();
+        Bundle args = new Bundle();
+        DialogItem item;
+        ArrayList<DialogItem> dataThis = new ArrayList<>();
+        for (String s : dataFilter) {
+            item = new DialogItem(s, false);
+            dataThis.add(item);
+        }
+        args.putParcelableArrayList(DATA_, dataThis);
         args.putString(TITLE_,title);
         fragment.setArguments(args);
         return fragment;

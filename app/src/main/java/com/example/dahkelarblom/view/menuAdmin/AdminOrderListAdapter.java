@@ -8,18 +8,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dahkelarblom.R;
-import com.example.dahkelarblom.model.BookingModel;
-import com.example.dahkelarblom.view.menuUser.home.MerchantListFragment.OnListFragmentInteractionListener;
+import com.example.dahkelarblom.model.responses.ViewAllOrderResponse;
 
 import java.util.List;
 
 public class AdminOrderListAdapter extends RecyclerView.Adapter<AdminOrderListAdapter.ViewHolder> {
 
-    private List<BookingModel> mValues;
-    private OnListFragmentInteractionListener mListener;
+    private List<ViewAllOrderResponse> mValues;
     private AdminOrderListOnClickListener onClickListener;
 
-    public AdminOrderListAdapter(List<BookingModel> merchantList, AdminOrderListOnClickListener onClickListener) {
+    public AdminOrderListAdapter(List<ViewAllOrderResponse> merchantList, AdminOrderListOnClickListener onClickListener) {
         mValues = merchantList;
         this.onClickListener = onClickListener;
     }
@@ -49,6 +47,7 @@ public class AdminOrderListAdapter extends RecyclerView.Adapter<AdminOrderListAd
                 tv_bookingCode,
                 tv_bookingPickup,
                 tv_bookingPrice,
+                tv_bookingType,
                 tv_bookingStatus;
         public AdminOrderListOnClickListener
                 onClickListener;
@@ -60,19 +59,25 @@ public class AdminOrderListAdapter extends RecyclerView.Adapter<AdminOrderListAd
             tv_bookingCode = view.findViewById(R.id.tv_bookingCode);
             tv_bookingPickup = view.findViewById(R.id.tv_bookingPickup);
             tv_bookingPrice = view.findViewById(R.id.tv_bookingPrice);
+            tv_bookingType = view.findViewById(R.id.tv_bookingType);
             tv_bookingStatus = view.findViewById(R.id.tv_bookingStatus);
 
             this.onClickListener = onClickListener;
             itemView.setOnClickListener(this);
         }
 
-        public void bind(BookingModel bookingModel){
-            tv_itemName.setText(bookingModel.getCustomer().getName());
-            tv_content.setText(bookingModel.getCustomer().getPhoneNum());
-            tv_bookingCode.setText(bookingModel.getBookingCode());
-            tv_bookingPickup.setText(bookingModel.getBookingPickupTime());
-            tv_bookingPrice.setText(bookingModel.getBookingPrice());
-            tv_bookingStatus.setText(bookingModel.getBookingStatus());
+        public void bind(ViewAllOrderResponse model){
+            tv_itemName.setText(model.getUsername());
+            tv_content.setText(model.getNoHp());
+            tv_bookingCode.setText(model.getCodeBooking());
+            tv_bookingPickup.setText(model.getPengambilanOrder());
+            tv_bookingPrice.setText(model.getKeterangan());
+            tv_bookingType.setText(model.getJnsOrder());
+            String status = model.getStatus();
+            if (model.getStatus() == null) {
+                status = "file belum diterima";
+            }
+            tv_bookingStatus.setText(status);
             //setImageView
         }
 

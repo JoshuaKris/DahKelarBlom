@@ -55,7 +55,15 @@
                     android:id="@+id/tv_bookingPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Rp.15.000"
+                    tools:text="ket"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/primary_text_light"/>
+
+                <TextView
+                    android:id="@+id/tv_bookingType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="type"
                     android:textSize="16sp"
                     android:textColor="@android:color/primary_text_light"/>
 

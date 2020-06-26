@@ -9,6 +9,7 @@ import com.readystatesoftware.chuck.ChuckInterceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class InternetService {
 
@@ -49,6 +50,7 @@ public class InternetService {
         retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .client(client)
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

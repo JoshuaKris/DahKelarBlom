@@ -19,11 +19,13 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.BookingModel;
+import com.example.dahkelarblom.model.responses.TrackBookingResponse;
 
 import java.util.Objects;
 
 public class TrackingDialogFragment extends DialogFragment {
 
+    private static String DIALOG_BOOKING_CODE_ = "";
     private static String DIALOG_BOOKING_ = "dialog_booking";
 
     private Button
@@ -34,21 +36,24 @@ public class TrackingDialogFragment extends DialogFragment {
             tv_merchant_address,
             tv_merchant_phonenum,
             tv_booking_status,
-            tv_booking_price,
+            tv_booking_username,
             tv_booking_pickup;
     private PopupListener
             mPopupListener;
-    private BookingModel
+    private TrackBookingResponse
             mBooking;
+    private String
+            code;
 
     public TrackingDialogFragment() {
         // Required empty public constructor
     }
 
-    public static TrackingDialogFragment newInstance(BookingModel mBooking) {
+    public static TrackingDialogFragment newInstance(TrackBookingResponse mBooking, String code) {
         TrackingDialogFragment fragment = new TrackingDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable(DIALOG_BOOKING_, mBooking);
+        args.putString(DIALOG_BOOKING_CODE_, code);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,6 +63,7 @@ public class TrackingDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mBooking = getArguments().getParcelable(DIALOG_BOOKING_);
+            code = getArguments().getString(DIALOG_BOOKING_CODE_);
         }
 
     }
@@ -76,7 +82,7 @@ public class TrackingDialogFragment extends DialogFragment {
         tv_merchant_address = fragmentView.findViewById(R.id.tv_merchant_address);
         tv_merchant_phonenum = fragmentView.findViewById(R.id.tv_merchant_phonenum);
         tv_booking_status = fragmentView.findViewById(R.id.tv_booking_status);
-        tv_booking_price = fragmentView.findViewById(R.id.tv_booking_price);
+        tv_booking_username = fragmentView.findViewById(R.id.tv_booking_username);
         tv_booking_pickup = fragmentView.findViewById(R.id.tv_booking_pickup);
 
         return fragmentView;
@@ -86,13 +92,13 @@ public class TrackingDialogFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        tv_popup_title.setText(String.format("Status Order %1$s",mBooking.getBookingCode()));
-        tv_merchant_name.setText(mBooking.getMerchantToBook().getName());
-        tv_merchant_address.setText(mBooking.getMerchantToBook().getMerchantAddress());
-        tv_merchant_phonenum.setText(mBooking.getMerchantToBook().getPhoneNum());
-        tv_booking_status.setText(mBooking.getBookingStatus());
-        tv_booking_price.setText(mBooking.getBookingPrice());
-        tv_booking_pickup.setText(mBooking.getBookingPickupTime());
+        tv_popup_title.setText(String.format("Status Order %1$s",code));
+        tv_merchant_name.setText(mBooking.getMerchantName());
+        tv_merchant_address.setText(mBooking.getMerchantLocation());
+        tv_merchant_phonenum.setText(mBooking.getPhoneNum());
+        tv_booking_status.setText(mBooking.getStatus());
+        tv_booking_username.setText(mBooking.getUsername());
+        tv_booking_pickup.setText(mBooking.getPengambilanOrder());
 
         bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override

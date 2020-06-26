@@ -1,12 +1,14 @@
-package com.example.dahkelarblom.view;
+package com.example.dahkelarblom.view.menuUser;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -21,21 +23,29 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.dahkelarblom.BaseVMF;
 import com.example.dahkelarblom.DialogChooseFragment;
-import com.example.dahkelarblom.model.Merchant;
+import com.example.dahkelarblom.model.responses.ViewAllMerchants;
 import com.example.dahkelarblom.utils.BaseActivity;
+import com.example.dahkelarblom.utils.Constants;
 import com.example.dahkelarblom.utils.HeaderFragment;
 import com.example.dahkelarblom.popup.PopupSuccessFragment;
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.DialogItem;
 import com.example.dahkelarblom.utils.Loading;
+import com.google.gson.JsonObject;
 import com.tom_roush.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class OrderActivity extends BaseActivity implements DialogChooseFragment.OnInputListener {
@@ -50,19 +60,18 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
     private final int GET_PDF_KEY = 0;
     private static final int PERMSISSION_REQUEST = 100;
     private String dialogInput = "";
-    private Merchant merchantThis;
+    private int tHour,tMinute;
+    private ViewAllMerchants merchantThis;
 
     private final ArrayList<DialogItem> dialogItemList = new ArrayList<>();
     private DialogChooseFragment dialogChooseFragment;
+    private OrderViewModel orderViewModel;
 
     private PopupSuccessFragment popupSuccessFragment;
-    private final PopupSuccessFragment.PopupListener popupListener = new PopupSuccessFragment.PopupListener() {
-        @Override
-        public void okClicked(boolean isClicked) {
-           if (isClicked) {
-               finish();
-           }
-        }
+    private final PopupSuccessFragment.PopupListener popupListener = isClicked -> {
+       if (isClicked) {
+           finish();
+       }
     };
 
     @Override
@@ -70,8 +79,10 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
+        BaseVMF factory = new BaseVMF<>(new OrderViewModel(OrderActivity.this));
+        orderViewModel = ViewModelProviders.of(this,factory).get(OrderViewModel.class);
         merchantThis = getIntent().getParcelableExtra("merchant_detail");
-        createItem();
+        initLiveData();
 
         headerFragment = (HeaderFragment) getSupportFragmentManager().findFragmentById(R.id.f_header);
         ib_backButton = Objects.requireNonNull(headerFragment.getView()).findViewById(R.id.ib_backButton);
@@ -101,8 +112,7 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
         rl_order_choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogChooseFragment = DialogChooseFragment.newInstance(dialogItemList,"Jenis Order");
-
+                dialogChooseFragment = DialogChooseFragment.newInstance(Constants.order,"Jenis Order");
                 dialogChooseFragment.show(getSupportFragmentManager(), "dialogChooseOrder");
                 dialogChooseFragment.setListener(OrderActivity.this);
             }
@@ -113,13 +123,47 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
             public void onClick(View v) {
                 if (!isEquals(tv_hint_order_choose,DEFAULT_ORDER_TEXT_KEY) && isNotEmpty(et_bioName) &&
                     isNotEmpty(et_bioPhoneNum) && isNotEmpty(et_bioDate) && isNotEmpty(et_bioAddInfo)) {
-                    popupSuccessFragment = PopupSuccessFragment.newInstance("WD420",merchantThis.getEmail());
-                    popupSuccessFragment.show(getSupportFragmentManager(), "popupSuccess");
-                    popupSuccessFragment.setListener(popupListener);
+                    JsonObject object = new JsonObject();
+                    object.addProperty("jnsOrder",tv_hint_order_choose.getText().toString());
+                    object.addProperty("keteranganOrder",et_bioAddInfo.getText().toString());
+                    object.addProperty("username",et_bioName.getText().toString());
+                    object.addProperty("noHp",et_bioPhoneNum.getText().toString());
+                    object.addProperty("pengambilanOrder",et_bioDate.getText().toString());
+                    object.addProperty("merchantId",merchantThis.getIdmerchant());
+                    object.addProperty("status","file belum diterima");
+                    orderViewModel.postMyOrder(object);
                 }
                 else {
                     Toast.makeText(OrderActivity.this, "Data masih ada yang kosong, silakan isi dahulu yang masih kosong.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        et_bioDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog dialog = new TimePickerDialog(
+                        OrderActivity.this,
+                        R.style.TimePicker,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                tHour = hourOfDay;
+                                tMinute = minute;
+                                String time = tHour+":"+tMinute;
+                                SimpleDateFormat f24hours = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                                try {
+                                    Date date = f24hours.parse(time);
+                                    SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa",Locale.getDefault());
+                                    et_bioDate.setText(f12Hours.format(date));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        },12,0,false);
+                dialog.updateTime(tHour,tMinute);
+                dialog.show();
             }
         });
 
@@ -129,6 +173,19 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
             @Override
             public void onClick(View v) {
                 chooseFile();
+            }
+        });
+    }
+
+    private void initLiveData() {
+        orderViewModel.getUserOrder().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (s != null) {
+                    popupSuccessFragment = PopupSuccessFragment.newInstance(s,merchantThis.getMerchantEmail());
+                    popupSuccessFragment.show(getSupportFragmentManager(), "popupSuccess");
+                    popupSuccessFragment.setListener(popupListener);
+                }
             }
         });
     }
@@ -177,15 +234,6 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
 //            ll_data_filter.setVisibility(View.VISIBLE);
 //            loading.close();
 //        }
-    }
-
-    private void createItem() {
-        DialogItem item;
-        for (int i = 1; i < 10; i ++) {
-            item = new DialogItem("Paket " + i,false);
-            dialogItemList.add(item);
-        }
-
     }
 
     private void chooseFile() {

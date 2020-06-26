@@ -12,11 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.dahkelarblom.R;
-import com.example.dahkelarblom.model.Merchant;
-import com.example.dahkelarblom.view.OrderActivity;
+import com.example.dahkelarblom.model.responses.ViewAllMerchants;
+import com.example.dahkelarblom.view.menuUser.OrderActivity;
 
 import java.util.ArrayList;
 
@@ -24,13 +23,12 @@ public class MerchantListFragment extends Fragment implements MerchantListAdapte
 
     private static final String MERCHANT_DATA = "merchant_data";
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
-    private ArrayList<Merchant> merchantArrayList;
+    private ArrayList<ViewAllMerchants> merchantArrayList;
 
     public MerchantListFragment() {
     }
 
-    public static MerchantListFragment newInstance(ArrayList<Merchant> merchantList) {
+    public static MerchantListFragment newInstance(ArrayList<ViewAllMerchants> merchantList) {
         MerchantListFragment fragment = new MerchantListFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(MERCHANT_DATA, merchantList);
@@ -52,7 +50,6 @@ public class MerchantListFragment extends Fragment implements MerchantListAdapte
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
-        // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -61,28 +58,9 @@ public class MerchantListFragment extends Fragment implements MerchantListAdapte
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-//            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
             recyclerView.setAdapter(new MerchantListAdapter(merchantArrayList, this));
         }
         return view;
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-//        if (context instanceof OnListFragmentInteractionListener) {
-//            mListener = (OnListFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnListFragmentInteractionListener");
-//        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -90,9 +68,5 @@ public class MerchantListFragment extends Fragment implements MerchantListAdapte
         Intent intent = new Intent(getActivity(),OrderActivity.class);
         intent.putExtra("merchant_detail",merchantArrayList.get(pos));
         startActivity(intent);
-    }
-
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Merchant item);
     }
 }

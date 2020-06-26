@@ -7,9 +7,16 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.dahkelarblom.model.Merchant;
+import com.example.dahkelarblom.model.responses.ViewAllMerchants;
 import com.example.dahkelarblom.service.InternetService;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,9 +30,8 @@ public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<String> mText = new MutableLiveData<>();
     private MutableLiveData<List<Merchant>> merchantList = new MutableLiveData<>();
-    private MutableLiveData<List<String>> locationList = new MutableLiveData<>();
-
-    private MutableLiveData<String> testMerchantList = new MutableLiveData<>();
+    private MutableLiveData<HashMap<Integer,String>> locationList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<ViewAllMerchants>> testMerchantList = new MutableLiveData<>();
 
     public HomeViewModel(Context context) {
         //still looking
@@ -40,11 +46,11 @@ public class HomeViewModel extends ViewModel {
         return merchantList;
     }
 
-    public LiveData<List<String>> getLocationList() {
+    public LiveData<HashMap<Integer,String>> getLocationList() {
         return locationList;
     }
 
-    public LiveData<String> getTestMerchantList() {
+    public LiveData<ArrayList<ViewAllMerchants>> getTestMerchantList() {
         return testMerchantList;
     }
 
@@ -149,10 +155,12 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void fetchLocationData() {
-        List<String> temp = new ArrayList<>();
-        temp.add("Jakarta Barat");
-        temp.add("Jakarta Selatan");
-        temp.add("Bekasi");
+        HashMap<Integer,String> temp = new HashMap<>();
+        temp.put(1,"Jakarta Barat");
+        temp.put(2,"Jakarta Selatan");
+        temp.put(3,"Bekasi");
+        temp.put(4,"Jakarta Utara");
+        temp.put(5,"Jakarta Timur");
         locationList.setValue(temp);
     }
 
@@ -160,10 +168,12 @@ public class HomeViewModel extends ViewModel {
         apiCall = InternetService.getServicesApi().getAllMerchant();
         apiCall.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
                 if (response.isSuccessful()) {
                     String s = response.body();
-                    testMerchantList.setValue(s);
+                    Type listType = new TypeToken<ArrayList<ViewAllMerchants>>(){}.getType();
+                    List<ViewAllMerchants> merchantListTemp = new GsonBuilder().create().fromJson(s,listType);
+                    testMerchantList.setValue((ArrayList<ViewAllMerchants>) merchantListTemp);
                 }
             }
 

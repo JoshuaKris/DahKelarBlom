@@ -37,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:text="Zenta"
                 android:textSize="16sp"
-                android:textColor="@android:color/primary_text_light"/>
+                android:textColor="@android:color/primary_text_light"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tv_merchant_address"
@@ -70,19 +71,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="Proses"
+                android:text="File sudah diterima"
                 android:textAllCaps="true"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/tv_booking_price"
+                android:id="@+id/tv_booking_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="14dp"
                 android:textAlignment="center"
-                android:text="Rp 12.000"
+                android:text="usernama"
                 android:textSize="16sp"
                 android:textColor="@android:color/secondary_text_light"
                 android:textStyle="bold"/>
@@ -95,8 +96,7 @@
                 android:textAlignment="center"
                 android:text="17:30 WIB"
                 android:textSize="16sp"
-                android:textColor="@android:color/secondary_text_light"
-                android:textStyle="bold"/>
+                android:textColor="@android:color/secondary_text_light"/>
 
         </LinearLayout>
 
@@ -106,6 +106,7 @@
         android:id="@+id/bt_popup_ok"
         android:layout_below="@id/ll_dialog_content"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bordered_button_ripple"

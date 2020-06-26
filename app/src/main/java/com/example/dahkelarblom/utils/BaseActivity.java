@@ -19,4 +19,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean isEquals(TextView tv, String s) {
         return tv.getText().toString().equalsIgnoreCase(s);
     }
+
+    public BaseActivity() {
+    }
 }

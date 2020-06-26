@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/Theme.AppCompat.Light.NoActionBar"
-    tools:context=".view.OrderActivity">
+    tools:context=".view.menuUser.OrderActivity">
 
     <fragment
         android:id="@+id/f_header"
@@ -262,6 +262,7 @@
                                     android:id="@+id/et_bioDate"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
                                     android:layout_toRightOf="@id/tv_bioDate"
                                     android:inputType="text"/>
 
@@ -272,7 +273,7 @@
                                     android:layout_alignParentRight="true"
                                     android:layout_marginRight="12dp"
                                     android:text="Minimal 3 Jam setelah order"
-                                    android:textSize="11dp"
+                                    android:textSize="11sp"
                                     android:textColor="@android:color/secondary_text_light"/>
 
                             </RelativeLayout>
@@ -298,6 +299,16 @@
                                     android:layout_height="wrap_content"
                                     android:layout_toRightOf="@id/tv_bioAddInfo"
                                     android:inputType="text"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/et_bioAddInfo"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="12dp"
+                                    android:text="Contoh = ukuran kertas, warna jilid, jenis jilid"
+                                    android:textSize="11sp"
+                                    android:textColor="@android:color/secondary_text_light"/>
 
                             </RelativeLayout>
 
