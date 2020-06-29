@@ -36,6 +36,7 @@ public class AdminMenuViewModel extends ViewModel {
     private MutableLiveData<List<BookingModel>> orderList = new MutableLiveData<>();
     private MutableLiveData<String> changeStatusOrder = new MutableLiveData<>();
     private MutableLiveData<List<ViewAllOrderResponse>> adminOrderList = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isListEmpty = new MutableLiveData<>();
 
     public AdminMenuViewModel(Context context) {
         this.context = context;
@@ -56,6 +57,10 @@ public class AdminMenuViewModel extends ViewModel {
 
     public LiveData<List<ViewAllOrderResponse>> getAdminOrderList() {
         return adminOrderList;
+    }
+
+    public LiveData<Boolean> getIsListEmpty() {
+        return isListEmpty;
     }
 
     @SuppressLint("DefaultLocale")
@@ -133,13 +138,18 @@ public class AdminMenuViewModel extends ViewModel {
                     String s = response.body();
                     Type listType = new TypeToken<ArrayList<ViewAllOrderResponse>>(){}.getType();
                     List<ViewAllOrderResponse> temp = new GsonBuilder().create().fromJson(s,listType);
+                    if (temp.size() > 0) {
+                        isListEmpty.setValue(false);
+                    } else {
+                        isListEmpty.setValue(true);
+                    }
                     adminOrderList.setValue(temp);
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-
+                isListEmpty.setValue(true);
             }
         });
     }

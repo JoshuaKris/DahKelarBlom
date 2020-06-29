@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -87,6 +88,17 @@ public class AdminMenuActivity extends AppCompatActivity implements AdminOrderLi
                 if (viewAllOrderResponses != null) {
                     orderList = viewAllOrderResponses;
                     updateRV(orderList);
+                }
+            }
+        });
+
+        viewModel.getIsListEmpty().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isListEmpty) {
+                if (isListEmpty) {
+                    text_admin_order.setVisibility(View.VISIBLE);
+                } else {
+                    text_admin_order.setVisibility(View.GONE);
                 }
             }
         });
