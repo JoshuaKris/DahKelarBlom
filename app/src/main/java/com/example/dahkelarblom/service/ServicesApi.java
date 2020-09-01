@@ -63,4 +63,11 @@ public interface ServicesApi {
     Call<String> trackMyBooking(
             @Body JsonObject requestBody
     );
+
+    //send password
+    @Headers("Content-Type: application/json")
+    @POST("/admins/forgot")
+    Call<String> sendPassword(
+            @Body JsonObject requestBody
+    );
 }

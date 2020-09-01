@@ -2,29 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dahkelarblom">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:name=".utils.BaseApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".view.forgot.ForgotPasswordActivity"
+            android:theme="@style/SecondaryAppTheme" />
         <activity
             android:name=".view.menuAdmin.AdminAddOrderActivity"
             android:theme="@style/SecondaryAppTheme" />
-        <activity
-            android:name=".view.menuAdmin.AdminMenuActivity" />
+        <activity android:name=".view.menuAdmin.AdminMenuActivity"
+            android:theme="@style/SecondaryAppTheme"/>
         <activity
             android:name=".view.register.RegisterActivity"
             android:theme="@style/SecondaryAppTheme" />
-        <activity
-            android:name=".view.login.LoginActivity" />
-        <activity
-            android:name=".view.menuUser.UserMenuActivity" />
+        <activity android:name=".view.login.LoginActivity" />
+        <activity android:name=".view.menuUser.UserMenuActivity" />
         <activity
             android:name=".view.menuUser.OrderActivity"
             android:theme="@style/SecondaryAppTheme" />

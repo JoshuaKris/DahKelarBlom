@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.dahkelarblom.BaseVMF;
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.utils.BaseActivity;
+import com.example.dahkelarblom.view.forgot.ForgotPasswordActivity;
 import com.example.dahkelarblom.view.menuAdmin.AdminMenuActivity;
 import com.example.dahkelarblom.view.register.RegisterActivity;
 import com.google.android.material.card.MaterialCardView;
@@ -21,7 +22,7 @@ import com.google.gson.JsonObject;
 public class LoginActivity extends BaseActivity {
 
     private MaterialCardView cv_button_sign_in;
-    private TextView tv_register;
+    private TextView tv_forgot_password,tv_register;
     private TextInputEditText et_username_field;
     private TextInputEditText et_password_field;
     private LoginViewModel loginViewModel;
@@ -37,6 +38,7 @@ public class LoginActivity extends BaseActivity {
         cv_button_sign_in = findViewById(R.id.cv_button_sign_in);
         et_username_field = findViewById(R.id.et_username_field);
         et_password_field = findViewById(R.id.et_password_field);
+        tv_forgot_password = findViewById(R.id.tv_forgot_password);
         tv_register = findViewById(R.id.tv_register);
 
         cv_button_sign_in.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,13 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
+
+        tv_forgot_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
             }
         });
 

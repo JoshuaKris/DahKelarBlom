@@ -14,7 +14,7 @@ import com.example.dahkelarblom.model.DialogItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DialogChooseAdapter extends RecyclerView.Adapter<DialogChooseAdapter.DialogFilterDurationViewHolder> {
+public class DialogChooseAdapter extends RecyclerView.Adapter<DialogChooseAdapter.DialogChooseViewHolder> {
 
     private final List<DialogItem> dataList;
     private final OnClickListener rbOnclickListener;
@@ -26,16 +26,16 @@ public class DialogChooseAdapter extends RecyclerView.Adapter<DialogChooseAdapte
 
     @NonNull
     @Override
-    public DialogFilterDurationViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public DialogChooseViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         View view = layoutInflater.inflate(R.layout.layout_recyclerview_dialog_item, viewGroup, false);
-        return new DialogFilterDurationViewHolder(view, rbOnclickListener);
+        return new DialogChooseViewHolder(view, rbOnclickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DialogFilterDurationViewHolder dialogFilterDurationViewHolder, int i) {
+    public void onBindViewHolder(@NonNull DialogChooseViewHolder dialogChooseViewHolder, int i) {
         DialogItem item = dataList.get(i);
-        dialogFilterDurationViewHolder.bind(item);
+        dialogChooseViewHolder.bind(item);
     }
 
     @Override
@@ -47,13 +47,13 @@ public class DialogChooseAdapter extends RecyclerView.Adapter<DialogChooseAdapte
         void onClick(int position);
     }
 
-    public class DialogFilterDurationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class DialogChooseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         final TextView tv_duration;
         final RadioButton rb_duration_select;
         private final OnClickListener rbOnclickListener;
 
-        DialogFilterDurationViewHolder(@NonNull View itemView, OnClickListener rbOnclickListener) {
+        DialogChooseViewHolder(@NonNull View itemView, OnClickListener rbOnclickListener) {
             super(itemView);
             tv_duration = itemView.findViewById(R.id.tv_itemDesc);
             rb_duration_select = itemView.findViewById(R.id.rb_item);

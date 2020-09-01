@@ -36,6 +36,7 @@ import com.example.dahkelarblom.popup.PopupSuccessFragment;
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.DialogItem;
 import com.example.dahkelarblom.utils.Loading;
+import com.example.dahkelarblom.utils.RangeTimePickerDialog;
 import com.google.gson.JsonObject;
 import com.tom_roush.pdfbox.pdmodel.PDDocument;
 
@@ -142,7 +143,7 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
         et_bioDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog dialog = new TimePickerDialog(
+                RangeTimePickerDialog dialog = new RangeTimePickerDialog(
                         OrderActivity.this,
                         R.style.TimePicker,
                         new TimePickerDialog.OnTimeSetListener() {
@@ -159,10 +160,11 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
-
                             }
-                        },12,0,false);
-                dialog.updateTime(tHour,tMinute);
+                        },12,0,true);
+                dialog.setMin(8,0);
+                dialog.setMax(20,1);
+//                dialog.updateTime(tHour,tMinute);
                 dialog.show();
             }
         });

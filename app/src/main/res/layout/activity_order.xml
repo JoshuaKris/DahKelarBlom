@@ -272,7 +272,7 @@
                                     android:layout_below="@id/et_bioDate"
                                     android:layout_alignParentRight="true"
                                     android:layout_marginRight="12dp"
-                                    android:text="Minimal 3 Jam setelah order"
+                                    android:text="Minimal 20 menit setelah order"
                                     android:textSize="11sp"
                                     android:textColor="@android:color/secondary_text_light"/>
 

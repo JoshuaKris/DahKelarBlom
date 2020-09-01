@@ -24,6 +24,8 @@ import com.example.dahkelarblom.utils.HeaderFragment;
 import com.example.dahkelarblom.popup.PopupSuccessFragment;
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.DialogItem;
+import com.example.dahkelarblom.utils.RangeTimePickerDialog;
+import com.example.dahkelarblom.view.menuUser.OrderActivity;
 import com.google.android.material.card.MaterialCardView;
 import com.google.gson.JsonObject;
 
@@ -93,27 +95,28 @@ public class AdminAddOrderActivity extends BaseActivity implements DialogChooseF
         et_order_pickup_field.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog dialog = new TimePickerDialog(
+                RangeTimePickerDialog dialog = new RangeTimePickerDialog(
                         AdminAddOrderActivity.this,
                         R.style.TimePicker,
                         new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        tHour = hourOfDay;
-                        tMinute = minute;
-                        String time = tHour+":"+tMinute;
-                        SimpleDateFormat f24hours = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                        try {
-                            Date date = f24hours.parse(time);
-                            SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa",Locale.getDefault());
-                            et_order_pickup_field.setText(f12Hours.format(date));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },12,0,false);
-                dialog.updateTime(tHour,tMinute);
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                tHour = hourOfDay;
+                                tMinute = minute;
+                                String time = tHour+":"+tMinute;
+                                SimpleDateFormat f24hours = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                                try {
+                                    Date date = f24hours.parse(time);
+                                    SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa",Locale.getDefault());
+                                    et_order_pickup_field.setText(f12Hours.format(date));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },12,0,true);
+                dialog.setMin(8,0);
+                dialog.setMax(20,1);
+//                dialog.updateTime(tHour,tMinute);
                 dialog.show();
             }
         });

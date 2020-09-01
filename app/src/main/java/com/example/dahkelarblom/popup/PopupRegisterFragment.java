@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -24,6 +25,8 @@ public class PopupRegisterFragment extends DialogFragment {
     private String popupBookingCode;
     private PopupRegisterListener mPopupListener;
 
+    private TextView tv_popup_title, tv_popup_message;
+
     public PopupRegisterFragment() {
         // Required empty public constructor
     }
@@ -31,6 +34,15 @@ public class PopupRegisterFragment extends DialogFragment {
     public static PopupRegisterFragment newInstance() {
         PopupRegisterFragment fragment = new PopupRegisterFragment();
         Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static PopupRegisterFragment newInstance(String title, String subtitle) {
+        PopupRegisterFragment fragment = new PopupRegisterFragment();
+        Bundle args = new Bundle();
+        args.putString("title",title);
+        args.putString("subtitle",subtitle);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,16 +62,24 @@ public class PopupRegisterFragment extends DialogFragment {
         View fragmentView = inflater.inflate(R.layout.fragment_popup_register, container, false);
 
         bt_ok = fragmentView.findViewById(R.id.bt_popup_ok);
+        tv_popup_title = fragmentView.findViewById(R.id.tv_popup_title);
+        tv_popup_message = fragmentView.findViewById(R.id.tv_popup_message);
 
-        bt_ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getDialog().dismiss();
-                if (mPopupListener != null) {
-                    mPopupListener.okClicked(true);
-                }
+        bt_ok.setOnClickListener(view -> {
+            getDialog().dismiss();
+            if (mPopupListener != null) {
+                mPopupListener.okClicked(true);
             }
         });
+
+        if (getArguments() != null) {
+            if (getArguments().getString("title") != null) {
+                tv_popup_title.setText(getArguments().getString("title"));
+            }
+            if (getArguments().getString("subtitle") != null) {
+                tv_popup_message.setText(getArguments().getString("subtitle"));
+            }
+        }
 
         return fragmentView;
     }

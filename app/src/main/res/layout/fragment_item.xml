@@ -30,6 +30,16 @@
             android:textColor="@android:color/primary_text_light"/>
 
         <TextView
+            android:id="@+id/tv_merchant_closed"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toko ini sedang tutup"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorRedButton"/>
+
+        <TextView
             android:id="@+id/tv_merchant_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

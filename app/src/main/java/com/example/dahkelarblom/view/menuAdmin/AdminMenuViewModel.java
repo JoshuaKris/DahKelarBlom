@@ -63,55 +63,6 @@ public class AdminMenuViewModel extends ViewModel {
         return isListEmpty;
     }
 
-    @SuppressLint("DefaultLocale")
-    public void fetchOrderData(boolean exist) {
-        List<BookingModel> temp = new ArrayList<>();
-        BookingModel model;
-
-        Customer customer = new Customer("Budi","081808280838","budi.budiawan@gmail.com");
-
-        Merchant merchant = new Merchant(
-                "Zenta Admin",
-                "(021) 53660671",
-                "zenta.print@gmail.com",
-                "Zenta Print",
-                "Zenta123",
-                "Jl. Anggrek Cakra No.16 RT.2/RW.9 (Binus Anggrek B Floor)",
-                0);
-
-        if (exist) {
-            for (int i = 1; i < 4; i++) {
-                model = new BookingModel(
-                        String.format("ZT%03d",i),
-                        "15.000",
-                        "17:3" + i*2,
-                        "sedang diproses",
-                        merchant,
-                        customer,
-                        "Lunas");
-                temp.add(model);
-            }
-            orderList.setValue(temp);
-        } else {
-            mText.setValue("No Booking appointment");
-        }
-    }
-
-//    public void getOrder(JsonObject jsonObject) {
-//        Call<ViewAllOrderResponse> apiCall = InternetService.getServicesApi().getAllOrder(jsonObject);
-//        apiCall.enqueue(new Callback<ViewAllOrderResponse>() {
-//            @Override
-//            public void onResponse(Call<ViewAllOrderResponse> call, Response<ViewAllOrderResponse> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ViewAllOrderResponse> call, Throwable t) {
-//
-//            }
-//        });
-//    }
-
     public void changeStatusOrder(JsonObject jsonObject) {
         apiCall = InternetService.getServicesApi().changeBookingStatus(jsonObject);
         apiCall.enqueue(new Callback<String>() {
