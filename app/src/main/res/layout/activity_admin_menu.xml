@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".view.menuAdmin.AdminMenuActivity">
 
+    <fragment
+        android:id="@+id/f_header"
+        android:name="com.example.dahkelarblom.utils.HeaderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <TextView
         android:id="@+id/text_admin_order"
         android:layout_width="match_parent"
@@ -25,6 +31,7 @@
         android:id="@+id/rv_order_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/f_header"
         android:layout_above="@id/rl_add_order"
         android:orientation="vertical"
         android:overScrollMode="never"

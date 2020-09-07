@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tv_confirmation_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tutup Toko Sekarang?"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:textColor="@android:color/primary_text_light"
+            android:textStyle="bold"/>
+
+        <View
+            android:id="@+id/v_div"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/tv_confirmation_title"
+            android:background="@drawable/divider"
+            android:backgroundTint="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:id="@+id/tv_confirmation_message"
+            android:layout_below="@id/v_div"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_centerHorizontal="true"
+            android:lineSpacingMultiplier="1.2"
+            android:text="Apakah anda yakin akan menutup toko? \n Anda tidak akan mendapatkan order."
+            android:textSize="16sp"
+            android:textColor="@android:color/primary_text_light"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_dialog_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_content"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_confirmation_ok"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/red_button_ripple"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="ok"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/bt_confirmation_cancel"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/bordered_button_ripple"
+            android:text="cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -13,13 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.forgot.ForgotPasswordActivity"
+        <activity android:name=".view.change.ChangePasswordActivity"></activity>
+        <activity
+            android:name=".view.menuAdmin.SettingActivity"
+            android:theme="@style/SecondaryAppTheme" />
+        <activity
+            android:name=".view.forgot.ForgotPasswordActivity"
             android:theme="@style/SecondaryAppTheme" />
         <activity
             android:name=".view.menuAdmin.AdminAddOrderActivity"
             android:theme="@style/SecondaryAppTheme" />
-        <activity android:name=".view.menuAdmin.AdminMenuActivity"
-            android:theme="@style/SecondaryAppTheme"/>
+        <activity android:name=".view.menuAdmin.AdminMenuActivity" />
         <activity
             android:name=".view.register.RegisterActivity"
             android:theme="@style/SecondaryAppTheme" />

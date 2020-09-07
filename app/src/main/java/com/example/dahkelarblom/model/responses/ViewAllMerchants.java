@@ -9,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
 public class ViewAllMerchants implements Parcelable {
 
     @Expose
+    @SerializedName("operationalMerchant")
+    private String operationalMerchant;
+    @Expose
     @SerializedName("password")
     private String password;
     @Expose
@@ -33,28 +36,9 @@ public class ViewAllMerchants implements Parcelable {
     @SerializedName("idmerchant")
     private int idmerchant;
 
-    private ViewAllMerchants(Parcel in) {
-        password = in.readString();
-        usernameAdmin = in.readString();
-        phoneNum = in.readString();
-        merchantEmail = in.readString();
-        merchantLocationId = in.readString();
-        merchantLocation = in.readString();
-        merchantName = in.readString();
-        idmerchant = in.readInt();
+    public String getOperationalMerchant() {
+        return operationalMerchant;
     }
-
-    public static final Creator<ViewAllMerchants> CREATOR = new Creator<ViewAllMerchants>() {
-        @Override
-        public ViewAllMerchants createFromParcel(Parcel in) {
-            return new ViewAllMerchants(in);
-        }
-
-        @Override
-        public ViewAllMerchants[] newArray(int size) {
-            return new ViewAllMerchants[size];
-        }
-    };
 
     public String getPassword() {
         return password;
@@ -88,6 +72,34 @@ public class ViewAllMerchants implements Parcelable {
         return idmerchant;
     }
 
+    public static Creator<ViewAllMerchants> getCREATOR() {
+        return CREATOR;
+    }
+
+    protected ViewAllMerchants(Parcel in) {
+        operationalMerchant = in.readString();
+        password = in.readString();
+        usernameAdmin = in.readString();
+        phoneNum = in.readString();
+        merchantEmail = in.readString();
+        merchantLocationId = in.readString();
+        merchantLocation = in.readString();
+        merchantName = in.readString();
+        idmerchant = in.readInt();
+    }
+
+    public static final Creator<ViewAllMerchants> CREATOR = new Creator<ViewAllMerchants>() {
+        @Override
+        public ViewAllMerchants createFromParcel(Parcel in) {
+            return new ViewAllMerchants(in);
+        }
+
+        @Override
+        public ViewAllMerchants[] newArray(int size) {
+            return new ViewAllMerchants[size];
+        }
+    };
+
     @Override
     public int describeContents() {
         return 0;
@@ -95,6 +107,7 @@ public class ViewAllMerchants implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(operationalMerchant);
         dest.writeString(password);
         dest.writeString(usernameAdmin);
         dest.writeString(phoneNum);

@@ -3,7 +3,10 @@ package com.example.dahkelarblom.view.menuAdmin;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,20 +20,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dahkelarblom.BaseVMF;
+import com.example.dahkelarblom.model.responses.LoginResponse;
 import com.example.dahkelarblom.model.responses.ViewAllOrderResponse;
 import com.example.dahkelarblom.popup.PopupAdminOrderFragment;
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.BookingModel;
+import com.example.dahkelarblom.utils.HeaderFragment;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AdminMenuActivity extends AppCompatActivity implements AdminOrderListAdapter.AdminOrderListOnClickListener, PopupAdminOrderFragment.PopupAdminOrderListener {
 
     private final static int ADD_ORDER_ACTIVITY = 1001;
 
     private AdminMenuViewModel viewModel;
+    private LoginResponse loginResponse;
     private RecyclerView rv_order_list;
     private RelativeLayout rl_add_order;
     private List<ViewAllOrderResponse> orderList = new ArrayList<>();
@@ -41,21 +48,42 @@ public class AdminMenuActivity extends AppCompatActivity implements AdminOrderLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_menu);
+        loginResponse = getIntent().getParcelableExtra("merchantData");
 
         BaseVMF factory = new BaseVMF<>(new AdminMenuViewModel(AdminMenuActivity.this));
         viewModel = ViewModelProviders.of(this,factory).get(AdminMenuViewModel.class);
         initLiveData();
+        HeaderFragment headerFragment = (HeaderFragment) getSupportFragmentManager().findFragmentById(R.id.f_header);
+        ImageButton ib_backButton = Objects.requireNonNull(headerFragment.getView()).findViewById(R.id.ib_backButton);
+        ImageButton ib_rightButton = Objects.requireNonNull(headerFragment.getView()).findViewById(R.id.ib_rightButton);
         text_admin_order = findViewById(R.id.text_admin_order);
         rv_order_list = findViewById(R.id.rv_order_list);
         rl_add_order = findViewById(R.id.rl_add_order);
 
-        updateFetchRV(getIntent().getStringExtra("merchantId"));
+        headerFragment.headerV2("Welcome " + getIntent().getStringExtra("merchantAdmin"),false,true);
+
+        ib_backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        ib_rightButton.setImageDrawable(getDrawable(R.drawable.ic_baseline_settings_24));
+        ib_rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminMenuActivity.this,SettingActivity.class);
+                intent.putExtra("merchantData", (Parcelable) getIntent().getParcelableExtra("merchantData"));
+                startActivity(intent);
+            }
+        });
+        updateFetchRV(String.valueOf(loginResponse.getIdmerchant()));
 
         rl_add_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminMenuActivity.this,AdminAddOrderActivity.class);
-                intent.putExtra("merchantId", getIntent().getStringExtra("merchantId"));
+                intent.putExtra("merchantId", String.valueOf(loginResponse.getIdmerchant()));
                 startActivityForResult(intent,ADD_ORDER_ACTIVITY);
             }
         });

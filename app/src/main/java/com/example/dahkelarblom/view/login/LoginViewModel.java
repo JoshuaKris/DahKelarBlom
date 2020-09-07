@@ -6,10 +6,19 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.dahkelarblom.model.responses.LoginResponse;
+import com.example.dahkelarblom.model.responses.TrackBookingResponse;
+import com.example.dahkelarblom.model.responses.ViewAllMerchants;
 import com.example.dahkelarblom.service.InternetService;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,13 +31,13 @@ public class LoginViewModel extends ViewModel {
     private Context context;
 
     private MutableLiveData<Boolean> statusSuccess = new MutableLiveData<>();
-    private MutableLiveData<String> idMerchant = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<LoginResponse>> idMerchant = new MutableLiveData<>();
 
     public LiveData<Boolean> getStatusSuccess() {
         return statusSuccess;
     }
 
-    public LiveData<String> getIdMerchant() {
+    public LiveData<ArrayList<LoginResponse>> getIdMerchant() {
         return idMerchant;
     }
 
@@ -44,14 +53,9 @@ public class LoginViewModel extends ViewModel {
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
                     String s = response.body();
-                    JsonArray jsonArray = new Gson().fromJson(s,JsonArray.class);
-                    if (jsonArray.size()>0) {
-                        JsonObject object = jsonArray.get(0).getAsJsonObject();
-                        String id = object.get("idmerchant").getAsString();
-                        idMerchant.setValue(id);
-                    } else {
-                        idMerchant.setValue("");
-                    }
+                    Type listType = new TypeToken<ArrayList<LoginResponse>>(){}.getType();
+                    List<LoginResponse> merchantListTemp = new GsonBuilder().create().fromJson(s,listType);
+                    idMerchant.setValue((ArrayList<LoginResponse>) merchantListTemp);
                 }
 
             }

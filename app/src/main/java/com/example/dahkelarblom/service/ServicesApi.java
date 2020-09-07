@@ -66,8 +66,31 @@ public interface ServicesApi {
 
     //send password
     @Headers("Content-Type: application/json")
-    @POST("/admins/forgot")
-    Call<String> sendPassword(
+    @POST("/resetpassword")
+    Call<String> sendEmail(
+            @Body JsonObject requestBody
+    );
+
+    //open Store
+    @Headers("Content-Type: application/json")
+    @POST("/admins/testUpdateOperational")
+    Call<String> updateOperationalTime(
+            @Body JsonObject requestBody
+    );
+
+    //get customer type order
+    @GET("/customer/viewJenisOrder")
+    Call<String> getCustTypeOrder();
+
+    //get merchant type order
+    @GET("/admins/viewJenisOrder")
+    Call<String> getMerchTypeOrder();
+
+
+    //send password
+    @Headers("Content-Type: application/json")
+    @POST("/admins/changePassword")
+    Call<String> changePass(
             @Body JsonObject requestBody
     );
 }

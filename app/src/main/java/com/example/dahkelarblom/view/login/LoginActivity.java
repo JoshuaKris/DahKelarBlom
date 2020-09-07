@@ -2,6 +2,7 @@ package com.example.dahkelarblom.view.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.dahkelarblom.BaseVMF;
 import com.example.dahkelarblom.R;
+import com.example.dahkelarblom.model.responses.LoginResponse;
 import com.example.dahkelarblom.utils.BaseActivity;
 import com.example.dahkelarblom.view.forgot.ForgotPasswordActivity;
 import com.example.dahkelarblom.view.menuAdmin.AdminMenuActivity;
@@ -18,6 +20,8 @@ import com.example.dahkelarblom.view.register.RegisterActivity;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends BaseActivity {
 
@@ -72,15 +76,19 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initLiveData() {
-        loginViewModel.getIdMerchant().observe(this, new Observer<String>() {
+        loginViewModel.getIdMerchant().observe(this, new Observer<ArrayList<LoginResponse>>() {
             @Override
-            public void onChanged(String s) {
-                if (!s.isEmpty()) {
-                    Intent intent = new Intent(LoginActivity.this, AdminMenuActivity.class);
-                    intent.putExtra("merchantId",s);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(LoginActivity.this, "maaf akun ini tidak ada, silakan register terlebih dahulu.", Toast.LENGTH_SHORT).show();
+            public void onChanged(ArrayList<LoginResponse> loginResponses) {
+                if (loginResponses != null) {
+                    if (!loginResponses.isEmpty()) {
+                        LoginResponse loginResponse = loginResponses.get(0);
+                        Intent intent = new Intent(LoginActivity.this, AdminMenuActivity.class);
+                        intent.putExtra("merchantAdmin",et_username_field.getText().toString());
+                        intent.putExtra("merchantData",loginResponse);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(LoginActivity.this, "maaf akun ini tidak ada, silakan register terlebih dahulu.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

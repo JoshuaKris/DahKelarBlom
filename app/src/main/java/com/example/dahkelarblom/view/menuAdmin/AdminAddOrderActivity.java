@@ -18,20 +18,20 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.dahkelarblom.BaseVMF;
 import com.example.dahkelarblom.DialogChooseFragment;
+import com.example.dahkelarblom.model.responses.ViewJenisOrderResponse;
 import com.example.dahkelarblom.utils.BaseActivity;
-import com.example.dahkelarblom.utils.Constants;
 import com.example.dahkelarblom.utils.HeaderFragment;
 import com.example.dahkelarblom.popup.PopupSuccessFragment;
 import com.example.dahkelarblom.R;
 import com.example.dahkelarblom.model.DialogItem;
 import com.example.dahkelarblom.utils.RangeTimePickerDialog;
-import com.example.dahkelarblom.view.menuUser.OrderActivity;
 import com.google.android.material.card.MaterialCardView;
 import com.google.gson.JsonObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -54,6 +54,7 @@ public class AdminAddOrderActivity extends BaseActivity implements DialogChooseF
             et_order_pickup_field;
 
     private final ArrayList<DialogItem> dialogItemList = new ArrayList<>();
+    private ArrayList<ViewJenisOrderResponse> listTemp = new ArrayList<>();
     private DialogChooseFragment dialogChooseFragment;
     private PopupSuccessFragment popupSuccessFragment;
 
@@ -64,6 +65,8 @@ public class AdminAddOrderActivity extends BaseActivity implements DialogChooseF
         BaseVMF factory = new BaseVMF<>(new AdminAddOrderViewModel(AdminAddOrderActivity.this));
         viewModel = ViewModelProviders.of(this,factory).get(AdminAddOrderViewModel.class);
         initLiveData();
+        viewModel.fetchAdminTypeOrder();
+
         headerFragment = (HeaderFragment) getSupportFragmentManager().findFragmentById(R.id.f_header);
         ib_backButton = Objects.requireNonNull(headerFragment.getView()).findViewById(R.id.ib_backButton);
         cv_button_add_order = findViewById(R.id.cv_button_add_order);
@@ -86,7 +89,7 @@ public class AdminAddOrderActivity extends BaseActivity implements DialogChooseF
         rl_order_choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogChooseFragment = DialogChooseFragment.newInstance(Constants.order,"Jenis Order");
+                dialogChooseFragment = DialogChooseFragment.newInstance(dialogItemList,"Jenis Order");
                 dialogChooseFragment.show(getSupportFragmentManager(), "dialogChooseOrder");
                 dialogChooseFragment.setListener(AdminAddOrderActivity.this);
             }
@@ -95,6 +98,14 @@ public class AdminAddOrderActivity extends BaseActivity implements DialogChooseF
         et_order_pickup_field.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Date date = new Date();
+                Date date2 = addMinutesToDate(date,20);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date2);
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+
                 RangeTimePickerDialog dialog = new RangeTimePickerDialog(
                         AdminAddOrderActivity.this,
                         R.style.TimePicker,
@@ -113,9 +124,9 @@ public class AdminAddOrderActivity extends BaseActivity implements DialogChooseF
                                     e.printStackTrace();
                                 }
                             }
-                        },12,0,true);
-                dialog.setMin(8,0);
-                dialog.setMax(20,1);
+                        },hour,minute,true);
+                dialog.setMin(hour,minute);
+                dialog.setMax(21,1);
 //                dialog.updateTime(tHour,tMinute);
                 dialog.show();
             }
@@ -155,6 +166,20 @@ public class AdminAddOrderActivity extends BaseActivity implements DialogChooseF
                     popupSuccessFragment = PopupSuccessFragment.newInstance(s.toUpperCase());
                     popupSuccessFragment.show(getSupportFragmentManager(), "popupSuccess");
                     popupSuccessFragment.setListener(AdminAddOrderActivity.this);
+                }
+            }
+        });
+
+        viewModel.getTypeList().observe(this, new Observer<ArrayList<ViewJenisOrderResponse>>() {
+            @Override
+            public void onChanged(ArrayList<ViewJenisOrderResponse> viewJenisOrderResponses) {
+                if (viewJenisOrderResponses != null) {
+                    listTemp = viewJenisOrderResponses;
+                    DialogItem item;
+                    for (ViewJenisOrderResponse x : viewJenisOrderResponses) {
+                        item = new DialogItem(x.getJenisOrder(),false);
+                        dialogItemList.add(item);
+                    }
                 }
             }
         });

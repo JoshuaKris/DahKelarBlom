@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.example.dahkelarblom.BaseVMF;
 import com.example.dahkelarblom.DialogChooseFragment;
 import com.example.dahkelarblom.model.responses.ViewAllMerchants;
+import com.example.dahkelarblom.model.responses.ViewJenisOrderResponse;
 import com.example.dahkelarblom.utils.BaseActivity;
 import com.example.dahkelarblom.utils.Constants;
 import com.example.dahkelarblom.utils.HeaderFragment;
@@ -42,10 +43,13 @@ import com.tom_roush.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -64,7 +68,8 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
     private int tHour,tMinute;
     private ViewAllMerchants merchantThis;
 
-    private final ArrayList<DialogItem> dialogItemList = new ArrayList<>();
+    private ArrayList<DialogItem> dialogItemList = new ArrayList<>();
+    private ArrayList<ViewJenisOrderResponse> listTemp = new ArrayList<>();
     private DialogChooseFragment dialogChooseFragment;
     private OrderViewModel orderViewModel;
 
@@ -84,6 +89,7 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
         orderViewModel = ViewModelProviders.of(this,factory).get(OrderViewModel.class);
         merchantThis = getIntent().getParcelableExtra("merchant_detail");
         initLiveData();
+        orderViewModel.fetchTypeOrder();
 
         headerFragment = (HeaderFragment) getSupportFragmentManager().findFragmentById(R.id.f_header);
         ib_backButton = Objects.requireNonNull(headerFragment.getView()).findViewById(R.id.ib_backButton);
@@ -113,7 +119,7 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
         rl_order_choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogChooseFragment = DialogChooseFragment.newInstance(Constants.order,"Jenis Order");
+                dialogChooseFragment = DialogChooseFragment.newInstance(dialogItemList,"Jenis Order");
                 dialogChooseFragment.show(getSupportFragmentManager(), "dialogChooseOrder");
                 dialogChooseFragment.setListener(OrderActivity.this);
             }
@@ -143,6 +149,14 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
         et_bioDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Date date = new Date();
+                Date date2 = addMinutesToDate(date,20);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date2);
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+
                 RangeTimePickerDialog dialog = new RangeTimePickerDialog(
                         OrderActivity.this,
                         R.style.TimePicker,
@@ -161,9 +175,9 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
                                     e.printStackTrace();
                                 }
                             }
-                        },12,0,true);
-                dialog.setMin(8,0);
-                dialog.setMax(20,1);
+                        },hour,minute,true);
+                dialog.setMin(hour,minute);
+                dialog.setMax(21,1);
 //                dialog.updateTime(tHour,tMinute);
                 dialog.show();
             }
@@ -187,6 +201,20 @@ public class OrderActivity extends BaseActivity implements DialogChooseFragment.
                     popupSuccessFragment = PopupSuccessFragment.newInstance(s,merchantThis.getMerchantEmail());
                     popupSuccessFragment.show(getSupportFragmentManager(), "popupSuccess");
                     popupSuccessFragment.setListener(popupListener);
+                }
+            }
+        });
+
+        orderViewModel.getTypeList().observe(this, new Observer<ArrayList<ViewJenisOrderResponse>>() {
+            @Override
+            public void onChanged(ArrayList<ViewJenisOrderResponse> viewJenisOrderResponses) {
+                if (viewJenisOrderResponses != null) {
+                    listTemp = viewJenisOrderResponses;
+                    DialogItem item;
+                    for (ViewJenisOrderResponse x : viewJenisOrderResponses) {
+                        item = new DialogItem(x.getJenisOrder(),false);
+                        dialogItemList.add(item);
+                    }
                 }
             }
         });

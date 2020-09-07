@@ -1,4 +1,4 @@
-package com.example.dahkelarblom.view.forgot;
+package com.example.dahkelarblom.view.change;
 
 import android.content.Context;
 
@@ -14,33 +14,33 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ForgotPasswordViewModel extends ViewModel {
+public class ChangePasswordViewModel extends ViewModel {
 
     private final InternetService internetService;
     private Call<String> apiCall;
     private Context context;
 
-    private MutableLiveData<String> sendPassRes = new MutableLiveData<>();
+    private MutableLiveData<String> changePassRes = new MutableLiveData<>();
 
-    public ForgotPasswordViewModel(Context context) {
+    public ChangePasswordViewModel(Context context) {
         this.context = context;
         this.internetService = new InternetService(context);
     }
 
     public LiveData<String> getsendPassRes() {
-        return sendPassRes;
+        return changePassRes;
     }
 
-    public void sendEmail(JsonObject jsonObject) {
-        apiCall = InternetService.getServicesApi().sendEmail(jsonObject);
+    public void changePass(JsonObject jsonObject) {
+        apiCall = InternetService.getServicesApi().changePass(jsonObject);
         apiCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    JsonObject jsonObject = JsonParser.parseString(response.body()).getAsJsonObject();
-                    String lava = jsonObject.get("Status").getAsString();
-                    sendPassRes.setValue(lava);
+//                    JsonObject jsonObject = JsonParser.parseString(response.body()).getAsJsonObject();
+//                    String lava = jsonObject.get("Status").getAsString();
+                    changePassRes.setValue("lava");
                 }
             }
 

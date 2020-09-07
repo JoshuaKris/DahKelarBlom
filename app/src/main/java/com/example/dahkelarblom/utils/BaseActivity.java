@@ -4,6 +4,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     public static final String DEFAULT_ORDER_TEXT_KEY = "Jenis Order";
@@ -18,6 +21,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     public boolean isEquals(TextView tv, String s) {
         return tv.getText().toString().equalsIgnoreCase(s);
+    }
+
+    public static Date addMinutesToDate(Date date, int minutes) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MINUTE, minutes);
+        return calendar.getTime();
     }
 
     public BaseActivity() {

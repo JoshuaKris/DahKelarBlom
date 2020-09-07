@@ -37,37 +37,37 @@ public class AuthActivity extends AppCompatActivity {
         cv_auth_user = findViewById(R.id.cv_auth_user);
         cv_auth_admin = findViewById(R.id.cv_auth_admin);
 
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-        Date date = new Date();
-        String dateformatted = dateFormat.format(date);
-        Log.d("GetCurrentDate", "dateformatted: " + dateformatted);
-
-        Date date2 = addMinutesToDate(date,20);
-        String dateAddedFormatted = dateFormat.format(date2);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date2);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-
-        Log.d("GetCurrentDate", "dateAddedFormatted: " + dateAddedFormatted);
-        Log.d("GetCurrentDate", "hour: " + hour);
-        Log.d("GetCurrentDate", "minute: " + minute);
-
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.US);
-            Date datetes1 = sdf.parse("08:00");
-            Date datetes2 = sdf.parse("08:30");
-            if(datetes1.before(datetes2)){
-                Log.d("GetCurrentDate", "Date1 is before Date2");
-            }
-
-            if(datetes1.after(datetes2)){
-                Log.d("GetCurrentDate", "Date1 is after Date2");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+//        Date date = new Date();
+//        String dateformatted = dateFormat.format(date);
+//        Log.d("GetCurrentDate", "dateformatted: " + dateformatted);
+//
+//        Date date2 = addMinutesToDate(date,20);
+//        String dateAddedFormatted = dateFormat.format(date2);
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(date2);
+//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//        int minute = calendar.get(Calendar.MINUTE);
+//
+//        Log.d("GetCurrentDate", "dateAddedFormatted: " + dateAddedFormatted);
+//        Log.d("GetCurrentDate", "hour: " + hour);
+//        Log.d("GetCurrentDate", "minute: " + minute);
+//
+//        try {
+//            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.US);
+//            Date datetes1 = sdf.parse("08:00");
+//            Date datetes2 = sdf.parse("08:30");
+//            if(datetes1.before(datetes2)){
+//                Log.d("GetCurrentDate", "Date1 is before Date2");
+//            }
+//
+//            if(datetes1.after(datetes2)){
+//                Log.d("GetCurrentDate", "Date1 is after Date2");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         cv_auth_user.setOnClickListener(new View.OnClickListener() {
             @Override

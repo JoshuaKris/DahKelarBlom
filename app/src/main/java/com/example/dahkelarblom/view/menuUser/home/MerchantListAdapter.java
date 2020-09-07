@@ -2,6 +2,7 @@ package com.example.dahkelarblom.view.menuUser.home;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,8 @@ public class MerchantListAdapter extends RecyclerView.Adapter<MerchantListAdapte
             tv_merchant_email.setText(merchant.getMerchantEmail());
             //setImageView
             //iv_merchant_image.
-            if (merchant.getMerchantName().equalsIgnoreCase("asdf")) {
+            Log.d("getOperational", "bind: " + merchant.getOperationalMerchant());
+            if (!Boolean.parseBoolean(merchant.getOperationalMerchant()) && merchant.getOperationalMerchant() != null) {
                 tv_merchant_closed.setVisibility(View.VISIBLE);
                 tv_merchant_address.setVisibility(View.GONE);
                 tv_merchant_phonenum.setVisibility(View.GONE);
